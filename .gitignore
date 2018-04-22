@@ -35,7 +35,6 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
-e2e/
 
 # Typescript v1 declaration files
 typings/
@@ -60,18 +59,7 @@ typings/
 
 node_modules
 dist
-e2e
 
-#Files from angular to be ignored
-favicon.ico
-polyfills.ts
-main.ts
-styles.css
-test.ts
-*.json
-.editorconfig
-karma.conf.js
-protactor.conf.js
-typings.d.ts
+
 
 
