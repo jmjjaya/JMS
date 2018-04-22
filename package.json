@@ -2,14 +2,28 @@
   "name": "jms",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run build && node dist/app.js",
+    "build": "tsc",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "test": "npm run lint"
   },
   "author": "David Roncancio <david@roncancio.me> (david.roncancio.me)",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.3"
+    "@types/es6-promise": "^3.3.0",
+    "bunyan": "^1.8.12",
+    "bunyan-middleware": "^0.8.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.15"
+  },
+  "devDependencies": {
+    "@types/bunyan": "^1.8.4",
+    "@types/express": "^4.11.1",
+    "@types/mongodb": "^3.0.15",
+    "@types/mongoose": "^5.0.10",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.3"
   }
 }
