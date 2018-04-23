@@ -6,10 +6,11 @@
  * @author Rupendra MAHARJAN
  */
 import { model, Schema } from "mongoose";
+
 const joinTableSchema: Schema = new Schema({
+    applicant_id: Number,
     position_id: Number,
     recruiter_id: Number,
-    applicant_id: Number
 });
 
 export const JoinTable = model("join_table", joinTableSchema);

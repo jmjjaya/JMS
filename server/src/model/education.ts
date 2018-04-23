@@ -5,15 +5,15 @@
  * Designed by Jeewan Mahendra Jayathilake and Rupendra Maharjan
  * @author Rupendra MAHARJAN
  */
-import { model, Schema } from "mongoose";
 import { Double } from "bson";
+import { model, Schema } from "mongoose";
 
 const educationSchema: Schema = new Schema({
    degree: String,
+   gpa: Double,
+   graduatedDate: Date,
    program: String,
    university: String,
-   gpa: Double,
-   graduatedDate: Date
 });
 
 export const Education = model("education", educationSchema);

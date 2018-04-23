@@ -8,11 +8,11 @@
 import { model, Schema } from "mongoose";
 
 const addressSchema: Schema = new Schema({
+    city: String,
     line1: String,
     line2: String,
-    city: String,
     state: String,
-    zipCode: String
+    zipCode: String,
 });
 
-export const Address = model("address",addressSchema);
+export const Address = model("address", addressSchema);

@@ -10,15 +10,15 @@ import { Education } from "./education";
 import { WorkExperience } from "./workExperience";
 
 const applicantSchema: Schema = new Schema({
-    applicant_id: Number,
-    name: String,
-    gender: String,
-    dob: String,
     address: String,
+    applicant_id: Number,
     contact: String,
-    email: String,
+    dob: String,
     education: [Education],
-    workExperience: [WorkExperience]
+    email: String,
+    gender: String,
+    name: String,
+    workExperience: [WorkExperience],
 });
 
 export const Applicant = model("applicant", applicantSchema);
