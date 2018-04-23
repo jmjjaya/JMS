@@ -4,11 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthComponent } from './navigation/auth/auth.component';
 import { BreadcumbComponent } from './navigation/breadcumb/breadcumb.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { ApplicantModule } from '../applicant/applicant.module';
 
 @NgModule({
   imports: [
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    ApplicantModule
   ],
   declarations: [
     AuthComponent,
