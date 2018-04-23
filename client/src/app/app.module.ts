@@ -6,6 +6,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { DataService } from './core/services/data.service';
+import { RecruiterModule } from './recruiter/recruiter.module';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +17,8 @@ import { DataService } from './core/services/data.service';
     BrowserModule,
     CoreModule,
     SharedModule,
-    ApplicantModule
+    ApplicantModule,
+    RecruiterModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
