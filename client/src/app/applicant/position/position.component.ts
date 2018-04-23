@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 
 @Component({
   selector: 'jmsapp-position',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./position.component.css']
 })
 export class PositionComponent implements OnInit {
+  @ViewChild('positionItem', {read: ViewContainerRef}) positionItemRef: ViewContainerRef;
 
   constructor() { }
 

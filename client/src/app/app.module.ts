@@ -6,10 +6,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { DataService } from './core/services/data.service';
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 
 @NgModule({
   declarations: [
