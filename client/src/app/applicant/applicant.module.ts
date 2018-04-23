@@ -9,6 +9,7 @@ import { PositionComponent } from './position/position.component';
   imports: [
     CommonModule
   ],
-  declarations: [ApplicantComponent, ApplicantInfoComponent, AppliedPostComponent, PositionComponent]
+  declarations: [ApplicantComponent, ApplicantInfoComponent, AppliedPostComponent, PositionComponent],
+  exports:[ApplicantComponent]
 })
 export class ApplicantModule { }

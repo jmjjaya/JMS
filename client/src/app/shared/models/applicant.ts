@@ -7,8 +7,7 @@ export class Applicant{
     gender:string;
     dob:Date;
     address: any;
-    contact: string;
+    phone: string;
     email: string;
-    education: Education[];
-    work_experience: WorkExperience[];
+    liURL: string;
 }
