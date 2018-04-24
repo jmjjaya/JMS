@@ -25,4 +25,4 @@ router.post("/register",
     }
 );
 
-export const AuthController: Router = router;
+export const AuthRouter: Router = router;

@@ -12,9 +12,11 @@
   "author": "David Roncancio <david@roncancio.me> (david.roncancio.me)",
   "license": "MIT",
   "dependencies": {
+    "@types/cors": "^2.8.4",
     "@types/jsonwebtoken": "^7.2.6",
     "bunyan": "^1.8.12",
     "bunyan-middleware": "^0.8.0",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-jsonschema": "^1.1.6",
     "jsonwebtoken": "^8.2.1",

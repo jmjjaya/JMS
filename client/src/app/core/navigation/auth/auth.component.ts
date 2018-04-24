@@ -28,12 +28,12 @@ export class AuthComponent implements OnInit {
   }
 
   submitLogin(loginForm) {
-    console.log(loginForm.value);
-    this._dataService.getApplilcantInfo();
+    this._dataService.login(this.model);
+    this._dataService.getApplicantInfo();
   }
 
   submitRegister(registerForm) {
-    console.log(registerForm.value);
+    this._dataService.register(this.model);
   }
 
 
