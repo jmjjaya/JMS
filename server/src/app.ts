@@ -10,7 +10,7 @@ import mongoose from "mongoose";
 mongoose.connect(process.env.MONGO_URL || myURL);
 
 // modules
-import { AuthController } from "./auth/controller";
+import { AuthController } from "./auth";
 
 // configuration
 const app = express();
@@ -23,6 +23,18 @@ app.use(bunyanMiddleware({ logger }));
 
 // routes
 app.use("/api/auth", AuthController);
+
+// Error Handling for validation
+app.use((err: any, req: any, res: any, next: any) => {
+
+    // JSON Schema validations for payloads
+    if(err.name === "JsonSchemaValidation"){
+        res.status(400).send(err.validations);
+    };
+
+    logger.error(err);
+    res.status(500).send('Something broke!')
+})
 
 // listening
 app.listen(3000, () => {
