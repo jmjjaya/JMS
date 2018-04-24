@@ -1,0 +1,8 @@
+<button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+  aria-controls="collapseExample">
+  View More
+</button>
+<div *ngIf="isCollapsed">
+  {{aPos.description}}
+  <jmsapp-job-applicants></jmsapp-job-applicants>
+</div>

@@ -5,18 +5,19 @@
  * Designed by Jeewan Mahendra Jayathilake and Rupendra Maharjan
  * @author Rupendra MAHARJAN
  */
-
-import { model, Schema } from "mongoose";
-import { Address } from "./address";
+import { model, Schema } from 'mongoose';
+import { Address } from '../model/address';
+import { JobPosition } from '../model/jobPosition';
 
 const recruiterSchema: Schema = new Schema({
+    recruiter_id: Number,
+    name: String,
     address: Address,
     contact: String,
     email: String,
-    logoURL: String,
-    name: String,
-    recruiter_id: Number,
     webLink: String,
+    logoURL: String,
+    positions: [JobPosition]
 });
 
 export const Recruiter = model("recruiter", recruiterSchema);

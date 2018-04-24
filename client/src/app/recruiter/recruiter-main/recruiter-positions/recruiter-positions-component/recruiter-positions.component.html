@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-xs-4 col-sm-4 col-md-4">
+    <h2>
+      Title
+    </h2>
+  </div>
+  <div class="col-xs-4 col-sm-4 col-md-4">
+    <h2>
+      Post Date
+    </h2>
+  </div>
+  <div class="col-xs-4 col-sm-4 col-md-4">
+    <h2>
+      Status
+    </h2>
+  </div>
+</div>
+
+<div *ngFor="let pos of jobPositions">
+  <div class="row">
+    
+    <div class="col-xs-4 col-sm-4 col-md-4">
+      {{pos.title}}
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4">
+      {{pos.postDate}}
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4">
+      {{pos.status}}
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+          <jmsapp-recruiter-position-info [aPos]="pos"></jmsapp-recruiter-position-info>
+          <hr>
+        </div>
+  </div>
+
+</div>

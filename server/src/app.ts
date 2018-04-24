@@ -1,11 +1,13 @@
-// imports
+
 import bunyanMiddleware from "bunyan-middleware";
 import express from "express";
 import logger from "./util/logger";
 
+const myURL = "mongodb://root:rupenman@ds157599.mlab.com:57599/final_exam_database";
 // connect to DB
 import mongoose from "mongoose";
-mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/jms");
+// mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/jms");
+mongoose.connect(process.env.MONGO_URL || myURL);
 
 // modules
 import { AuthController } from "./auth/controller";
