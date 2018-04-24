@@ -1,4 +1,4 @@
-export class AutModel {
+export class AuthModel {
 
     constructor(
         public fullname: string = "",
