@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { DataService } from './core/services/data.service';
 import { RecruiterModule } from './recruiter/recruiter.module';
+import { SearchModule } from './search/search.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { RecruiterModule } from './recruiter/recruiter.module';
     CoreModule,
     SharedModule,
     ApplicantModule,
-    RecruiterModule
+    RecruiterModule,
+    SearchModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
