@@ -1,6 +1,6 @@
-<div class="container-fluid">
-  <div class="col-md-4">Postion Title</div>
-  <div class="col-md-4">Company</div>
-  <div class="col-md-4">Applied Date</div>
-  <div #positionItems></div>
-</div>
+<accordion>
+    <accordion-group *ngFor="let pos of positions" [heading] = "pos.jobTitle">
+      <p>{{pos.jobPositionId}}</p>
+      <p>{{pos.description}}</p>
+    </accordion-group>
+</accordion>

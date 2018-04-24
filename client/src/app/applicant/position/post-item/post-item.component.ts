@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { JobPosition } from '../../../shared/models/jobPosition';
 
 @Component({
   selector: 'jmsapp-post-item',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-item.component.css']
 })
 export class PostItemComponent implements OnInit {
-
-  constructor() { }
+  @Input() positioninfo: JobPosition;
+  constructor() {
+   }
 
   ngOnInit() {
   }
