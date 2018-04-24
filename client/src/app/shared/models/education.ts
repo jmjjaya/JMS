@@ -2,6 +2,6 @@ export class Education{
     degree: string;
     program: string;
     university:string;
-    gpa: number;
+    gpa:number;
     graduatedYear: Date;
 }
