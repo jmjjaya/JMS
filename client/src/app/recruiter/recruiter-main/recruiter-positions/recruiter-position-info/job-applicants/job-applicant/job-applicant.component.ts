@@ -3,8 +3,7 @@ import { Applicant } from '../../../../../../shared/models/applicant';
 
 @Component({
   selector: 'jmsapp-job-applicant',
-  templateUrl: './job-applicant.component.html',
-  styleUrls: ['./job-applicant.component.css']
+  templateUrl: './job-applicant.component.html'
 })
 export class JobApplicantComponent implements OnInit {
   @Input() anApplicant: Applicant;
