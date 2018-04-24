@@ -14,5 +14,5 @@ import { JobPosition } from "../shared/models/jobPosition";
      email:string;
      webLink: string;
      logoURL: string;
-     positions:JobPosition[];
+    //  positions:JobPosition[];
  }

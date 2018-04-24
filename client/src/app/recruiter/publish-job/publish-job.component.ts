@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RecruiterService } from '../recruiter-services/recruiter.service';
-import { Observable} from 'rxjs/Observable';
+import { JobPosition } from '../../shared/models/jobPosition';
+import { DataService } from '../../core/services/data.service';
+// import { Observable} from 'rxjs/Observable';
 @Component({
   selector: 'jmsapp-publish-job',
   templateUrl: './publish-job.component.html',
@@ -10,27 +11,29 @@ export class PublishJobComponent implements OnInit {
   @Input() title;
   @Input() description;
   @Input() tags;
-  constructor(private recruiterService: RecruiterService) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
   }
 
   createNewJob(){
-    let newJob ={
+    let newJob:JobPosition ={
       title: this.title,
       description: this.description,
       tags: this.tags,
       status:'Open',
       postDate: new Date()
     };
-    this.recruiterService.createNewJob(newJob).subscribe(
+    this.dataService.createNewJob(newJob).subscribe(
       result=>{
+        this.dataService.getJobPosition();
         console.log("A new Job is created successfully...");
         return true;
       },
       err =>{
+        console.error(err);
         console.log("Job Creation Failed...");
-        return Observable.throw(err);
+        // return Observable.throw(err);
       }
     );
   }

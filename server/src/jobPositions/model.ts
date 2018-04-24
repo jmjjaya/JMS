@@ -7,21 +7,13 @@
  */
 
 import { model, Schema } from "mongoose";
-import { Address } from "./address";
 
 const jobPositionSchema: Schema = new Schema({
-    category: String,
-    closingDate: Date,
-    description: String,
-    jobPosition_id: Number,
-    joiningDate: Date,
-    level: String,
-    location: Address,
-    min_qualification: String,
-    noOfVacancy: Number,
-    responsibilities: String,
     title: String,
-    type: String,   // Full Time, Part Time or Contract
+    description: String,
+    tags: String,
+    status: String,
+    postDate: { type: Date, default: new Date() }
 });
 
 export const JobPosition = model("job_position", jobPositionSchema);
