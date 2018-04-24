@@ -13,7 +13,7 @@ import { AppComponent } from '../../../app.component';
 })
 export class AuthComponent implements OnInit {
 
-  model: FormData = new FormData();
+  model: AuthModel = new AuthModel();
 
   modalRef: BsModalRef;
   constructor(private modalService: BsModalService, private _dataService: DataService) {}
