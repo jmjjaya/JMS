@@ -1,8 +1,10 @@
+import { DataService } from './../../services/data.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AuthModel } from './auth.model';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { AppComponent } from '../../../app.component';
 
 @Component({
   selector: 'auth',
@@ -14,7 +16,7 @@ export class AuthComponent implements OnInit {
   model: FormData = new FormData();
 
   modalRef: BsModalRef;
-  constructor(private modalService: BsModalService) {}
+  constructor(private modalService: BsModalService, private _dataService: DataService) {}
 
 
   loginModal(loginModalTemplate: TemplateRef<any>) {
@@ -27,6 +29,7 @@ export class AuthComponent implements OnInit {
 
   submitLogin(loginForm) {
     console.log(loginForm.value);
+    this._dataService.getApplilcantInfo();
   }
 
   submitRegister(registerForm) {

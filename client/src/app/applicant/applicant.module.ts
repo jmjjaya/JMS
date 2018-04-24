@@ -5,12 +5,15 @@ import { ApplicantInfoComponent } from './applicant-info/applicant-info.componen
 import { AppliedPostComponent } from './applied-post/applied-post.component';
 import { PositionComponent } from './position/position.component';
 import { PostItemComponent } from './position/post-item/post-item.component';
+import { AccordionModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    AccordionModule.forRoot()
   ],
   declarations: [ApplicantComponent, ApplicantInfoComponent, AppliedPostComponent, PositionComponent, PostItemComponent],
-  exports:[ApplicantComponent]
+  exports:[ApplicantComponent],
+  entryComponents:[PostItemComponent, PositionComponent]
 })
 export class ApplicantModule { }
