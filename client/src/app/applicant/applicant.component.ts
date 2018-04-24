@@ -18,15 +18,13 @@ export class ApplicantComponent implements OnInit {
   constructor(private _dataService: DataService, public cdRef: ChangeDetectorRef) {
   }
   ngOnInit() {
-    this.applicant = null;
-    this.positions = [];
   }
 
   ngAfterViewInit() {
-    this.cdRef.detectChanges();
     this._dataService.applilcant.subscribe((res: AppliedPost) => {
       this.applicant = res.applicant;
       this.positions = res.appliedpost;
+      this.cdRef.detectChanges();
     });
   }
 }

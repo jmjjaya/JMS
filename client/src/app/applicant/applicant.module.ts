@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApplicantComponent } from './applicant.component';
@@ -6,14 +7,19 @@ import { AppliedPostComponent } from './applied-post/applied-post.component';
 import { PositionComponent } from './position/position.component';
 import { PostItemComponent } from './position/post-item/post-item.component';
 import { AccordionModule } from 'ngx-bootstrap';
+import { UpdateApplicantInfoComponent } from './update-applicant-info/update-applicant-info.component';
+import {AlertModule, ModalModule} from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    FormsModule,
+    ModalModule.forRoot(),
+    AlertModule.forRoot()
   ],
-  declarations: [ApplicantComponent, ApplicantInfoComponent, AppliedPostComponent, PositionComponent, PostItemComponent],
+  declarations: [ApplicantComponent, ApplicantInfoComponent, AppliedPostComponent, PositionComponent, PostItemComponent, UpdateApplicantInfoComponent],
   exports:[ApplicantComponent],
-  entryComponents:[PostItemComponent, PositionComponent]
+  entryComponents:[UpdateApplicantInfoComponent]
 })
 export class ApplicantModule { }
