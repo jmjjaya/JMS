@@ -5,6 +5,8 @@ import { AuthModel } from './auth.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AppComponent } from '../../../app.component';
+import { AuthService } from '../../../auth/auth.service';
+import { Credentials } from '../../../shared/models/credentials';
 
 
 @Component({
@@ -19,7 +21,11 @@ export class AuthComponent implements OnInit {
   isAuthenticated: boolean = this._dataService.isAuthenticated();
 
   modalRef: BsModalRef;
-  constructor(private modalService: BsModalService, private _dataService: DataService) {}
+  constructor(
+    private modalService: BsModalService,
+    private _dataService: DataService,
+    private _authService: AuthService
+  ) {}
 
 
   loginModal(loginModalTemplate: TemplateRef<any>) {
@@ -32,10 +38,14 @@ export class AuthComponent implements OnInit {
 
   submitLogin(loginForm) {
     this._dataService.login(this.model);
-    this.isAuthenticated = true; // this should be a subscribe to changes on data service
-    console.log(localStorage.getItem('jwt'));
-    this._dataService.getApplicantInfo();
-    this.modalRef.hide();
+    this._dataService.credentials.subscribe((credentials: Credentials) => {
+
+      console.log(this._authService.getDecodedToken());
+
+      this._dataService.getApplicantInfo();
+      this.modalRef.hide();
+
+    }, console.error);
   }
 
   submitRegister(registerForm) {
@@ -46,7 +56,7 @@ export class AuthComponent implements OnInit {
   logout() {
     console.log('logout');
     this._dataService.logout();
-    this.isAuthenticated = false;  // this should be a subscribe to changes on data service
+    this.isAuthenticated = false;
   }
 
   goProfile() {
