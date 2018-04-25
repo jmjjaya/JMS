@@ -35,8 +35,7 @@ export const login = async (req: any, res: any, next: any) => {
         return res.status(401).json({ error: "unauthorized" });
     }
 
-    const { fullname, role } = user;
-    req.user = { fullname, email, role };
+    req.user = user;
 
     next();
 };
@@ -56,15 +55,13 @@ export const register = async (req: any, res: any, next: any) => {
 
     const { fullname,  email, password, role } : authPayload = req.body;
 
-    const user: any = await User.findOne({ email });
-
-    if (user) {
+    if (await User.findOne({ email })) {
         return res.status(400).json({ error: "user already exists" });
     }
 
-    await User.create({ fullname, email, role, password: hashpass(password) });
+    const user = await User.create({ fullname, email, role, password: hashpass(password) });
 
-    req.user = { fullname, email, role };
+    req.user = user;
 
     next();
 };

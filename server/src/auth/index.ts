@@ -10,8 +10,8 @@ router.post("/login",
     Auth.login,
     Auth.generateJWT,
     (req: any, res: any) => {
-        const { token } = req;
-        res.send({ token });
+        const { token, user } = req;
+        res.send({ token, user  });
     }
 );
 
@@ -20,8 +20,8 @@ router.post("/register",
     Auth.register,
     Auth.generateJWT,
     (req: any, res: any) => {
-        const { email, token } = req;
-        res.send({ token });
+        const { token, user } = req;
+        res.send({ token, user });
     }
 );
 

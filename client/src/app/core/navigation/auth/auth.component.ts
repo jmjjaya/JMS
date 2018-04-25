@@ -50,7 +50,13 @@ export class AuthComponent implements OnInit {
 
   submitRegister(registerForm) {
     this._dataService.register(this.model);
-    this.modalRef.hide();
+    this._dataService.credentials.subscribe((credentials: Credentials) => {
+
+      console.log(this._authService.getDecodedToken());
+
+      this.modalRef.hide();
+
+    }, console.error);
   }
 
   logout() {
