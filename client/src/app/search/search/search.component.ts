@@ -1,6 +1,10 @@
-import { Component, OnInit, ViewChild , Input} from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import { DataService } from '../../core/services/data.service';
+import { JobPosition } from '../../shared/models/jobPosition';
+
 
 @Component({
   selector: 'jmsapp-search',
@@ -8,20 +12,20 @@ import { BrowserModule } from '@angular/platform-browser';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-  jobs = JOBS;
 
   @ViewChild('myTable') table: any;
-  @Input('searchTerm') searchTerm: string;
 
-  rows: any[] = [];
   expanded: any = {};
   timeout: any;
 
-  constructor() {
-    // this.fetch((data) => {
-    //   this.rows = data;
-    // });
-    this.rows = this.jobs;
+  jobs: any[] = [];
+  loading: boolean;
+  constructor(private _dataService: DataService) {
+    this._dataService.getJobPosition();
+    this._dataService.jobPosition.subscribe((response: JobPosition[]) =>{
+      console.log("jobs");
+      this.jobs = response;
+    });
   }
 
   onPage(event) {
@@ -70,30 +74,4 @@ export class SearchComponent {
 
 }
 
-export interface JobPosition {
-  id: number;
-  title: string;
-  company: String;
-  tags: String;
-}
-
-const JOBS: JobPosition[] = [{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" },{ id: 1, title: "Data Engineering", company: "Citadel", tags: "Python R" },
-{ id: 2, title: "Data Scientist", company: "BOA", tags: "Matlab Hadoop" }
-];
 

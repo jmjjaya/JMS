@@ -1,11 +1,11 @@
-<div class="bkgnd shadow">
-    <div class="search-bar">
+<div [ngClass]="bkgnd">
+    <div [ngClass]="searchbar">
         <div>
             <input [(ngModel)]="asyncSelected" [typeahead]="dataSource" (typeaheadLoading)="changeTypeaheadLoading($event)" (typeaheadOnSelect)="typeaheadOnSelect($event)"
-                [typeaheadOptionsLimit]="7" typeaheadOptionField="name" placeholder="Locations loaded with timeout" class="form-control search-input">
+                [typeaheadOptionsLimit]="7" typeaheadOptionField="name" placeholder="Locations loaded with timeout" [ngClass]="searchinput">
             <div *ngIf="typeaheadLoading">Loading</div>
             <p></p>
-            <span><button class="btn btn-primary" (click)="onSearch()">Search</button></span>
+            <button class="btn btn-primary" (click)="onSearch($event)">Search</button>
         </div>
     </div>
 

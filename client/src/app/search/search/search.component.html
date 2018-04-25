@@ -1,106 +1,52 @@
-<!-- <div class="jobs_search_result" *ngFor="let job of jobs">
 
-    <div class="job_info col-sm-12 card card-body" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-      <div class="job_expand col-sm-1" (click)="expandJob($event)">expand</div>
-      <div class="job_title col-sm-3">
-        {{ job.title }}
-      </div>
-      <div class="job_company col-sm-3">
-        {{ job.company }}
-      </div>
-      <div class="job_tags col-sm-3">
-        {{ job.tags }}
-      </div>
-      <div class="apply_job col-sm-2">
-        <button class="btn btn-link" (click)="applyJob($event)" id="job_{{ job.id }}">
+<div style="margin: 10px">
+  <ngx-datatable #myTable style="height:500px" class='material expandable' [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50"
+    [scrollbarV]="true" [rows]='jobs' (page)="onPage($event)">
+
+    <!-- Row Detail Template -->
+    <ngx-datatable-row-detail [rowHeight]="200" #myDetailRow (toggle)="onDetailToggle($event)">
+      <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+        <div style="padding-left:35px">
+          <h3>Job Description</h3>
+          <p>Job Description for job_{{ row.id }}</p>
+          <button class="btn btn-primary offset-sm-4" (click)="applyJob($event)" id="{{ row.id }}">
+            Apply for this position
+          </button>
+        </div>
+      </ng-template>
+    </ngx-datatable-row-detail>
+
+    <!-- Column Templates -->
+    <ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
+      <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+        <a href="javascript:void(0)" [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded" title="Expand/Collapse Row"
+          (click)="toggleExpandRow(row)">
+        </a>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Title" width="100">
+      <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+        <strong>{{ row.title }}</strong>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Company" width="80">
+      <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+        <strong>{{ row.company }}</strong>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Tags" width="200">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <strong>{{ row.tags }}</strong>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Apply" width="80">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <button class="btn btn-primary" (click)="applyJob($event)" id="job_{{ row.id }}">
           Apply
         </button>
-      </div>
-    </div>
-    
-  </div>
-
-  <div class="container row col-sm-10 offset-sm-1 job_detail align-self-center card card-body " id="job_{{ job.id }}">
-    <h3 class="p_title">Job Description for job_{{ job.id }}</h3>
-    <div class="p_content">{{ job.descipiton }}</div>
-    <div class="apply_job justify-content-center">
-      <button class="btn btn-primary" (click)="applyJob($event)" id="job_{{ job.id }}">
-        Apply for this position
-      </button>
-    </div>
-  </div>
-
-</div>  -->
-
-
-<!-- <accordion *ngFor="let job of jobs">
-  <accordion-group>
-    <div accordion-heading class="clearfix">
-      <th scope="col">{{ job.title }}</th>
-      <th scope="col">{{ job.company }}</th>
-      <th scope="col">{{ job.tags }}</th>
-      <th scope="col">
-        <button class="btn btn-primary col-md-2" (click)="applyJob($event)" id="job_{{ job.id }}">
-          Apply
-        </button>
-      </th>
-    </div>
-
-    <h3>Job Description</h3>
-    <p>Job Description for job_{{ job.id }}</p>
-    <button class="btn btn-primary offset-sm-6" (click)="applyJob($event)" id="job_{{ job.id }}">
-      Apply for this position
-    </button>
-  </accordion-group>
-</accordion> -->
-
-
-<ngx-datatable #myTable class='material expandable' [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50"
-  [scrollbarV]="true" [rows]='jobs' (page)="onPage($event)">
-
-  <!-- Row Detail Template -->
-  <ngx-datatable-row-detail [rowHeight]="200" #myDetailRow (toggle)="onDetailToggle($event)">
-    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
-      <div style="padding-left:35px">
-        <h3>Job Description</h3>
-        <p>Job Description for job_{{ row.id }}</p>
-        <button class="btn btn-primary offset-sm-4" (click)="applyJob($event)" id="{{ row.id }}">
-          Apply for this position
-        </button>
-      </div>
-    </ng-template>
-  </ngx-datatable-row-detail>
-
-  <!-- Column Templates -->
-  <ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
-    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-      <a href="javascript:void(0)" [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded" title="Expand/Collapse Row"
-        (click)="toggleExpandRow(row)">
-      </a>
-    </ng-template>
-  </ngx-datatable-column>
-  
-  <ngx-datatable-column name="Title" width="100">
-    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
-      <strong>{{ row.title }}</strong>
-    </ng-template>
-  </ngx-datatable-column>
-  <ngx-datatable-column name="Company" width="80">
-    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-      <strong>{{ row.company }}</strong>
-    </ng-template>
-  </ngx-datatable-column>
-  <ngx-datatable-column name="Tags" width="200">
-    <ng-template let-row="row" ngx-datatable-cell-template>
-      <strong>{{ row.tags }}</strong>
-    </ng-template>
-  </ngx-datatable-column>
-  
-  <ngx-datatable-column name="Apply" width="80">
-    <ng-template let-row="row" ngx-datatable-cell-template>
-      <button class="btn btn-primary" (click)="applyJob($event)" id="job_{{ row.id }}">
-        Apply
-      </button>
-    </ng-template>
-  </ngx-datatable-column>
-</ngx-datatable>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
