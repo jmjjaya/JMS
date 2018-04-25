@@ -149,25 +149,20 @@ export class DataService {
     return this._http.post(url + "/jobPosition/create", body, httpOptions);
   }
 
-  getRecruiter() {
-    return this._http.get(url);
-  }
-
-  getRecruiterByName(name) {
-    this._http.get(`${url}/recruiter/${name}`).subscribe((response: Recruiter) => {
-      this.dataRepo.recruiter = response;
-      this._recruiter.next(Object.assign({}, this.dataRepo).recruiter);
+  getRecruiterInfo(name) {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      const options = {
+        headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` })
+      };
     }
-
-    );
   }
 
-  createRecruiter(newRecruiter) {
-
-    let body = newRecruiter;
-    return this._http.post(url + "/recruiter/create", body, httpOptions).subscribe(
+  createRecruiter(newRecruiter) {  
+    let body = JSON.stringify(newRecruiter);
+    return this._http.post(url+"/recruiter/create", body, httpOptions).subscribe(
       result => {
-        console.log("Creating Recruiter.....");
+        console.log("Creating Recruiter.....", result);
         return true;
       },
       err => {

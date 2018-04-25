@@ -10,57 +10,61 @@ var mongoose = require('mongoose');
 const router = Router();
 
 router.get("/info", async (req, res) => {
-    console.log("I am here")
     logger.info({ log: "this" });
-    const recruiter = await Recruiter.find();
-    // const recruiter = await Recruiter.findOne({});
-
-    res.send({ hello: "world", recruiter });
+    console.log(req.url);
+    const recruiter = await Recruiter.findOne({name:"Rupendra"});
+    res.send(recruiter);
 });
 
-router.get("/:name", async (req, res) =>{
-    logger.info("fetching recruiter by name");
-    const aRecruiter = await Recruiter.findOne({name:req.params.name});
-    res.send(aRecruiter);
+router.get("/:id", async (req, res) => {
+    logger.info({ log: "this" });
+    let id = req.params.id;
+    
+    const recruiter = await Recruiter.findOne({name:id});
+    res.send(recruiter);
 });
 
-router.post('/create', async (req, res,next) =>{
+router.post('/create', async (req, res, next) => {
     logger.info("Recruiter Created");
-
-    const query ={name:"Try"};
-
-    const employer =new Recruiter({
-        name: "Test"
+    let body = req.body;
+    console.log(body.name + body.address + body.contact + body.contact + body.email);
+    const newEmployer = new Recruiter({
+        name:body.name,
+        address: body.address,
+        contact: body.contact,
+        email:body.email,
+        webLink:body.webLink,
+        logoURL:""
     });
 
-    await employer.save();
-    res.end('Ok'); 
+    await newEmployer.save();
+    res.send({});
 });
 
+router.put('/update', async (req, res, next) => {
+    
+    let body = req.body;
+    console.log("My URL=" + JSON.stringify(req.body));
 
-// router.get("/create", async (req, res) => {
+    const query ={
+        recruiter_id:body.recruiter_id
+    };
 
-//     logger.info("creating Recruiter");
+    const newEmployer = {
+        $set: {
+            name: body.name,
+            address: body.address,
+            contact: body.contact,
+            email: body.email,
+            webLink: body.webLink,
+            positions:{$push: body.positions},
+            logoURL: body.logoURL
+        }};
+    console.log();
+    logger.info("Recruiter Updated");
+    await Recruiter.findOneAndUpdate(query,newEmployer,{upsert:true});
+    res.send({});
 
-//     const recruiter = new Recruiter({
-//         name: "Jeewan",
-//         address: {
-//             _id: new mongoose.Types.ObjectId(),
-//             city:"Fairfield",
-//             line1:"1000 N. 4th street",
-//             line2:"141",
-//             state:"IA",
-//             zipCode:"52557"
-//         },
-//         contact: "myContact",
-//         email: "www.com",
-//         webLink: "www.comee",
-//         logoURL: "http",
-//         // positions: [JobPosition]
-//     });
-//     await recruiter.save();
-//     res.send("ok");
-// });
-
+});
 
 export const RecruiterController: Router = router;

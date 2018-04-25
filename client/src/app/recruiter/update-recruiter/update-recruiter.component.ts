@@ -8,10 +8,11 @@ import { DataService } from '../../core/services/data.service';
 })
 export class UpdateRecruiterComponent implements OnInit {
 
-  @Input() name;
-  @Input() contact;
-  @Input() userWebLink;
-  @Input() email;
+  name:string;
+  address: string;
+  contact:string;
+  userWebLink:string;
+  email:string;
   fullImagePath:string;
 
   selectedFile:File = null;
@@ -25,13 +26,20 @@ export class UpdateRecruiterComponent implements OnInit {
   onSubmit(){
     // const fd = new FormData();
     // fd.append('image',this.selectedFile,this.selectedFile.name); 
-    let body = {name: 'Rupendra'}; 
-    this._dataService.createRecruiter(body);
+    let body = {
+      name: this.name,
+      address: this.address,
+      contact: this.contact,
+      webLink: this.userWebLink,
+      email: this.email,
+      logoURL:""
+    };
+    // this._dataService.createRecruiter(body);
+    this._dataService.updateRecruiter(body);
   }
   
   getImage(event){
     // console.log(event);
     // this.selectedFile = event.target.files[0];
   }
-  
 }

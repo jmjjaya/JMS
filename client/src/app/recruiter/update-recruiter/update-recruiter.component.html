@@ -12,9 +12,23 @@
     'has-success': username.valid && (username.touched || username.dirty)
   }">
     <label class="aria-label">Name</label>
-    <input type="text" name="name" [(ngModel)]="name" class="form-control" required #username="ngModel">
+    <input type="text" name="name" [(ngModel)]="name" class="form-control" required 
+    #username="ngModel"
+    placeholder="e.g. Joseph">
     <div class="form-control-feedback" *ngIf="username.errors && (username.touched || username.dirty)">
       <p *ngIf="username.errors.required">Required</p>
+    </div>
+  </div>
+
+  <div [ngClass]="{
+    'has-danger': userAddress.invalid && (userAddress.touched || userAddress.dirty),
+    'has-success': userAddress.valid && (userAddress.touched || userAddress.dirty)
+  }">
+    <label class="aria-label">Address</label>
+    <input type="text" name="address" [(ngModel)]="address" class="form-control" required #userAddress="ngModel"
+    placeholder="e.g. 1000 N. 4th Street HR Building 141, Fairfield, IA 52557">
+    <div class="form-control-feedback" *ngIf="userAddress.errors && (userAddress.touched || userAddress.dirty)">
+      <p *ngIf="userAddress.errors.required">Required</p>
     </div>
   </div>
 
@@ -23,7 +37,8 @@
     'has-success': userContact.valid && (userContact.touched || userContact.dirty)
   }">
     <label class="aria-label">Contact</label>
-    <input type="text" name="contact" [(ngModel)]="contact" class="form-control" required #userContact="ngModel">
+    <input type="text" name="contact" [(ngModel)]="contact" class="form-control" required #userContact="ngModel"
+    placeholder="e.g. Contact">
     <div class="form-control-feedback" *ngIf="userContact.errors && (userContact.touched || userContact.dirty)">
       <p *ngIf="userContact.errors.required">Required</p>
     </div>
@@ -34,8 +49,10 @@
     'has-success': userWebLink.valid && (userWebLink.touched || userWebLink.dirty)
   }">
     <label class="aria-label">WebLink</label>
-    <input type="text" name="webLink" [(ngModel)]="webLink" class="form-control" required #userWebLink="ngModel">
-    <div class="form-control-feedback" *ngIf="userWebLink.errors && (userWebLink.touched || userWebLink.dirty)">
+    <input type="text" name="webLink" [(ngModel)]="webLink" class="form-control" required #userWebLink="ngModel"
+    placeholder="www.mum.edu">
+    <div class="form-control-feedback" *ngIf="userWebLink.errors && (userWebLink.touched || userWebLink.dirty)"
+    placeholder = "contactme.edu">
       <p *ngIf="userWebLink.errors.required">Required</p>
     </div>
   </div>

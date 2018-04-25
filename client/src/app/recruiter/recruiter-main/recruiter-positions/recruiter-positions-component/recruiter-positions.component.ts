@@ -28,16 +28,6 @@ export class RecruiterPositionsComponent implements OnInit {
       this.jobPositions = response;
     });
   }
-
-  getRecruitersInfo() {
-    this.dataService.getRecruiter().subscribe(
-      result => {
-        this.recruiter = <Recruiter>result;
-        console.log(this.recruiter);
-        return true;
-      }
-    );
-  }
   ngOnInit() {
     // this.getRecruitersInfo();
   }

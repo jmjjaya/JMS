@@ -10,12 +10,14 @@ import {Address} from '../model/address';
 import { JobPosition } from '../jobPositions/model';
 
 const recruiterSchema: Schema = new Schema({
+    recruiter_id: String,
     name: String,
+    address: String,
     // address:{type:Schema.Types.ObjectId,refs:'Address'},
-    // contact: String,
-    // email: String,
-    // webLink: String,
-    // logoURL:String,
+    contact: String,
+    email: String,
+    webLink: String,
+    logoURL:String,
     // positions:[JobPosition]
 });
 
