@@ -181,4 +181,15 @@ export class DataService {
       return this._http.post(`${url}/applicant/update`, body, options);
     }
   }
+
+  updateRecruiter(updatedRecruiter){
+    let body = JSON.stringify(updatedRecruiter);
+    return this._http.put(url+"/recruiter/update", body, httpOptions).subscribe(
+      result => {
+        console.log("Updating Recruiter ...", result);
+        return true;
+      },
+      err => console.error(err)
+    );
+  }
 }
