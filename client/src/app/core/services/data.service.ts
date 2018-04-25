@@ -9,7 +9,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Recruiter } from '../../recruiter/recruiter';
 //import { APP_CONFIG, HttpConfig } from '../../app-config/app-config.constants';
-
 import { JobPosition } from '../../shared/models/jobPosition';
 
 const httpOptions = {
