@@ -1,12 +1,14 @@
 <div class="bkgnd shadow">
     <div class="search-bar">
-        <input type="text" [(ngModel)]="term" placeholder="Search for your dream job!">
-        <div *ngIf="term">
-            <p *ngFor="let item of suggestions | filter:term" class="suggest">
-                {{ item }}
-            </p>
+        <div>
+            <input [(ngModel)]="asyncSelected" [typeahead]="dataSource" (typeaheadLoading)="changeTypeaheadLoading($event)" (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                [typeaheadOptionsLimit]="7" typeaheadOptionField="name" placeholder="Locations loaded with timeout" class="form-control search-input">
+            <div *ngIf="typeaheadLoading">Loading</div>
+            <p></p>
+            <span><button class="btn btn-primary" (click)="onSearch()">Search</button></span>
         </div>
-
     </div>
+
+
 
 </div>

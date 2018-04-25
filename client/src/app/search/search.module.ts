@@ -5,8 +5,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BrowserModule } from '@angular/platform-browser';
 import { SearchComponent } from './search/search.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+
 
 @NgModule({
   imports: [
@@ -14,9 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AccordionModule.forRoot(),
     NgxDatatableModule,
     BrowserModule,
-    Ng2SearchPipeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TypeaheadModule
   ],
   declarations: [SearchComponent, SearchBarComponent],
   exports: [SearchComponent, SearchBarComponent]

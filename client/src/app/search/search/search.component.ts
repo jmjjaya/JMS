@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild , Input} from '@angular/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -11,6 +11,7 @@ export class SearchComponent {
   jobs = JOBS;
 
   @ViewChild('myTable') table: any;
+  @Input('searchTerm') searchTerm: string;
 
   rows: any[] = [];
   expanded: any = {};
