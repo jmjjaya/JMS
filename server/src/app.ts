@@ -19,6 +19,7 @@ import { JobPositionController } from "./jobPositions/controller";
 
 // configuration
 const app = express();
+// const cors= require('cors');
 
 // Supports for JSON parsing
 app.use(express.json());

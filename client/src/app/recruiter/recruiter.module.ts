@@ -10,14 +10,16 @@ import { RecruiterPositionInfoComponent } from './recruiter-main/recruiter-posit
 import { JobApplicantsComponent } from './recruiter-main/recruiter-positions/recruiter-position-info/job-applicants/job-applicants.component';
 import { JobApplicantComponent } from './recruiter-main/recruiter-positions/recruiter-position-info/job-applicants/job-applicant/job-applicant.component';
 import { PublishJobComponent } from './publish-job/publish-job.component';
+import { UpdateRecruiterComponent } from './update-recruiter/update-recruiter.component';
+
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
   ],
-  exports: [RecruiterMainComponent, PublishJobComponent],
+  exports: [RecruiterMainComponent, PublishJobComponent, UpdateRecruiterComponent],
   providers:[],
   declarations: [RecruiterInfoComponent, 
     RecruiterMainComponent, 
@@ -25,6 +27,7 @@ import { PublishJobComponent } from './publish-job/publish-job.component';
     RecruiterPositionInfoComponent, 
     JobApplicantsComponent, 
     JobApplicantComponent, 
-    PublishJobComponent]
+    PublishJobComponent, UpdateRecruiterComponent],
+    entryComponents:[PublishJobComponent]
 })
 export class RecruiterModule { }

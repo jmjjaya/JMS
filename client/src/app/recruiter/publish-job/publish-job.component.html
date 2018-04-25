@@ -1,27 +1,33 @@
-<!--  class="form-group">
-  <input type="text" name="title" [(ngModel)]="title" placeholder=" class="form-control">
-  <input type="text" name="description" [(ngModel)]="description" class="form-control" placeholder="Short Description">
-  <input type="text" name="tags" [(ngModel)]="tags" placeholder="e.g. IT, Telecommunication etc." class="form-control">
-  <input type="submit" value="Create" class="btn btn-primary">
-</form> -->
+<div class="container">
+  <h1>Publish Your Job</h1>
+  <form (ngSubmit)="onSubmit()" #f="ngForm">
 
-<form (ngSubmit)="onSubmit()" #f="ngForm">
-  <div>
-    <label for="title">Title* </label>
-    <input type="text" class="form-control input-sm" [(ngModel)]="title" name="title" placeholder="JobTitle i.e. Software Developer">
-  </div>
+    <div [ngClass]="{
+        'has-danger': jobTitle.invalid && (jobTitle.touched || jobTitle.dirty),
+        'has-success': jobTitle.valid && (jobTitle.touched || jobTitle.dirty)
+      }">
+      <label for="title">Title* </label>
+      <input type="text" class="form-control input-sm" [(ngModel)]="title" name="title" placeholder="JobTitle i.e. Software Developer"
+        #jobTitle="ngModel" required>
+      <div class="feedback-form-control" *ngIf="jobTitle.errors && (jobTitle.touched || jobTitle.dirty)">
+        <p *ngIf="jobTitle.errors.required">Title is required</p>
+      </div>
+    </div>
 
-  <div>
-    <label for="description">Description*</label>
-    <textarea class="form-control input-sm" name="description" [(ngModel)]="description" rows="3"></textarea>
-  </div>
+    <div>
+      <label for="description">Description*</label>
+      <textarea class="form-control input-sm" name="description" [(ngModel)]="description" rows="3" maxlength="2000" #desc="ngModel"></textarea>
+      <p>Maximum Length is 2000 characters</p>
+    </div>
 
-  <div>
-    <label for="tags">Tags*</label>
-    <input type="text" class="form-control input-sm" name="tags" [(ngModel)]="tags" placeholder="">
-  </div>
+    <div>
+      <label for="tags">Tags*</label>
+      <input type="text" class="form-control input-sm" name="tags" [(ngModel)]="tags" placeholder="Example: IT, Computer Engineer"
+        #tgs="ngModel">
+    </div>
 
-  <div>
-    <input type="submit" value="Create" class="btn btn-primary">
-  </div>
-</form>
+    <div id="btn-submit">
+      <input type="submit" value="Create" class="btn btn-primary">
+    </div>
+  </form>
+</div>

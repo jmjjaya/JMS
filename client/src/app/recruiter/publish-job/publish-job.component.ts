@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { JobPosition } from '../../shared/models/jobPosition';
 import { DataService } from '../../core/services/data.service';
+import { BsModalService } from 'ngx-bootstrap';
+import { Router } from '@angular/router';
 // import { Observable} from 'rxjs/Observable';
 @Component({
   selector: 'jmsapp-publish-job',
@@ -11,7 +13,7 @@ export class PublishJobComponent implements OnInit {
   @Input() title;
   @Input() description;
   @Input() tags;
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService,private router:Router) { }
 
   ngOnInit() {
   }
@@ -39,6 +41,7 @@ export class PublishJobComponent implements OnInit {
   }
   
   onSubmit(){
-    this.createNewJob();
+    this.router.navigateByUrl('/updateRecruiter');
+    // this.createNewJob();
   }
 }
