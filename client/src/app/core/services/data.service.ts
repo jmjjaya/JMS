@@ -16,17 +16,17 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const url = "http://localhost/3000/api";
-
+const url = "http://localhost:3000/api";
 
 @Injectable()
 export class DataService {
 
   private dataRepo: {
     applicant: AppliedPost,
-    credentials: Credentials
-    jobPosition: JobPosition;
-    recruiter: Recruiter;
+    credentials: Credentials,
+    jobPosition: JobPosition,
+    recruiter: Recruiter,
+    authenticated: boolean,
   };
 
   private _applicant: BehaviorSubject<AppliedPost>;
@@ -35,7 +35,6 @@ export class DataService {
   private _credentials: BehaviorSubject<Credentials>;
   public credentials: Observable<Credentials>;
 
-  private apiRoot: string = 'http://localhost:3000'
 
   private _jobPosition: BehaviorSubject<JobPosition>;
   public jobPosition: Observable<JobPosition>;
@@ -43,11 +42,14 @@ export class DataService {
   private _recruiter: BehaviorSubject<Recruiter>;
   public recruiter: Observable<Recruiter>;
 
-
   constructor(private _http: HttpClient) {
-    this.dataRepo = { applicant: new AppliedPost, credentials: new Credentials,
+    this.dataRepo = {
+      applicant: new AppliedPost,
+      credentials: new Credentials,
       jobPosition: new JobPosition,
-      recruiter: new Recruiter };
+      recruiter: new Recruiter,
+      authenticated: false,
+    };
 
     this._applicant = <BehaviorSubject<AppliedPost>>new BehaviorSubject(new AppliedPost);
     this.applilcant = this._applicant.asObservable();
@@ -72,7 +74,7 @@ export class DataService {
         headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` })
       };
 
-      this._http.get(`${this.apiRoot}/api/applicant/info`, options)
+      this._http.get(`${url}/applicant/info`, options)
         .subscribe((response : AppliedPost) => {
 
           this.dataRepo.applicant = response;
@@ -82,8 +84,12 @@ export class DataService {
     }
   }
 
+  isAuthenticated() {
+    return this.dataRepo.authenticated;
+  }
+
   login(credentials: any) {
-    this._http.post(`${this.apiRoot}/api/auth/login`, credentials, httpOptions).subscribe(
+    this._http.post(`${url}/auth/login`, credentials, httpOptions).subscribe(
       (response: Credentials) => {
 
         localStorage.setItem('jwt', response.token);
@@ -91,20 +97,29 @@ export class DataService {
         this.dataRepo.credentials = response;
         this._credentials.next(Object.assign({}, this.dataRepo).credentials);
 
+        this.dataRepo.authenticated = true;
+
       },
       err => console.error('login error', err)
     );
   }
 
+  logout() {
+    localStorage.removeItem('jwt');
+    this.dataRepo.authenticated = false;
+  }
+
   register(user: any) {
 
-    this._http.post(`${this.apiRoot}/api/auth/register`, user, httpOptions).subscribe(
+    this._http.post(`${url}/auth/register`, user, httpOptions).subscribe(
       (response : Credentials) => {
 
         localStorage.setItem('jwt', response.token);
 
         this.dataRepo.credentials = response;
         this._credentials.next(Object.assign({}, this.dataRepo).credentials);
+
+        this.dataRepo.authenticated = true;
       },
       err => console.error('register error', err)
     );

@@ -30,6 +30,7 @@ app.use(cors());
 
 // routes
 app.use("/api/auth", AuthRouter);
+app.use("/api/applicant", ApplicantRouter);
 app.use("/api/recruiter", RecruiterController);
 app.use("/api/jobPosition", JobPositionController);
 

@@ -1,6 +1,14 @@
-<button type="button" class="btn" (click)="registerModal(registerMod)">Register</button>
-/
-<button type="button" class="btn" (click)="loginModal(loginMod)">Login</button>
+<div *ngIf="isAuthenticated">
+    <button type="button" class="btn" (click)="goProfile()">Profile</button>
+    /
+    <button type="button" class="btn" (click)="logout()">Logout</button>
+</div>
+
+<div *ngIf="!isAuthenticated">
+    <button type="button" class="btn" (click)="registerModal(registerMod)">Register</button>
+    /
+    <button type="button" class="btn" (click)="loginModal(loginMod)">Login</button>
+</div>
 
 <ng-template #registerMod>
     <div class="modal-header">
