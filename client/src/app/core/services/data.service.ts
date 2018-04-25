@@ -151,7 +151,16 @@ export class DataService {
   }
 
   createRecruiter(newRecruiter) {
-    let body = JSON.stringify(newRecruiter);
-    return this._http.post(url, body, httpOptions);
+    
+    let body = newRecruiter;
+    return this._http.post(url+"/recruiter/create", body, httpOptions).subscribe(
+      result => {
+        console.log("Creating Recruiter.....");
+        return true;
+      },
+      err => {
+        console.error(err)
+      }
+    );
   }
 }

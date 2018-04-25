@@ -23,6 +23,7 @@ const app = express();
 
 // Supports for JSON parsing
 app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 // logger configuration
 app.use(bunyanMiddleware({ logger }));
 

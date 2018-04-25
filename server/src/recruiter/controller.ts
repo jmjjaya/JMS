@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/info", async (req, res) => {
     console.log("I am here")
     logger.info({ log: "this" });
     const recruiter = await Recruiter.find();
@@ -24,29 +24,43 @@ router.get("/:name", async (req, res) =>{
     res.send(aRecruiter);
 });
 
-router.get("/create", async (req, res) => {
+router.post('/create', async (req, res,next) =>{
+    logger.info("Recruiter Created");
 
-    logger.info("creating Recruiter");
+    const query ={name:"Try"};
 
-    const recruiter = new Recruiter({
-        name: "Jeewan",
-        address: {
-            _id: new mongoose.Types.ObjectId(),
-            city:"Fairfield",
-            line1:"1000 N. 4th street",
-            line2:"141",
-            state:"IA",
-            zipCode:"52557"
-        },
-        contact: "myContact",
-        email: "www.com",
-        webLink: "www.comee",
-        logoURL: "http",
-        // positions: [JobPosition]
+    const employer =new Recruiter({
+        name: "Test"
     });
-    await recruiter.save();
-    res.send("ok");
+
+    await employer.save();
+    res.end('Ok'); 
 });
+
+
+// router.get("/create", async (req, res) => {
+
+//     logger.info("creating Recruiter");
+
+//     const recruiter = new Recruiter({
+//         name: "Jeewan",
+//         address: {
+//             _id: new mongoose.Types.ObjectId(),
+//             city:"Fairfield",
+//             line1:"1000 N. 4th street",
+//             line2:"141",
+//             state:"IA",
+//             zipCode:"52557"
+//         },
+//         contact: "myContact",
+//         email: "www.com",
+//         webLink: "www.comee",
+//         logoURL: "http",
+//         // positions: [JobPosition]
+//     });
+//     await recruiter.save();
+//     res.send("ok");
+// });
 
 
 export const RecruiterController: Router = router;
