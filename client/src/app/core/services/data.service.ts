@@ -48,11 +48,8 @@ export class DataService {
       jobPosition: new Array<JobPosition>(),
       recruiter: new Recruiter,
       authenticated: false,
+
     };
-
-    this._applicant = <BehaviorSubject<AppliedPost>>new BehaviorSubject(new AppliedPost);
-    this.applilcant = this._applicant.asObservable();
-
     this._credentials = <BehaviorSubject<Credentials>>new BehaviorSubject(new Credentials);
     this.credentials = this._credentials.asObservable();
     this.applilcant = this._applicant.asObservable();
@@ -66,19 +63,22 @@ export class DataService {
 
   getApplicantInfo() {
 
-    const token = localStorage.getItem('jwt');
+    console.log('hereeee');
 
+    const token = localStorage.getItem('jwt');
+    console.log({token});
     if (token) {
       const options = {
         headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` })
       };
-
+      console.log(token);
       this._http.get(`${url}/applicant/info`, options)
         .subscribe((response: AppliedPost) => {
 
+          console.log(response);
+
           this.dataRepo.applicant = response;
           this._applicant.next(Object.assign({}, this.dataRepo).applicant);
-
         });
     }
   }
@@ -112,7 +112,6 @@ export class DataService {
 
     this._http.post(`${url}/auth/register`, user, httpOptions).subscribe(
       (response: Credentials) => {
-
         localStorage.setItem('jwt', response.token);
 
         this.dataRepo.credentials = response;
@@ -172,5 +171,18 @@ export class DataService {
         console.error(err)
       }
     );
+  }
+
+  updateApplicantInfo(applicantInfo) {
+
+    const token = localStorage.getItem('jwt');
+    console.log(token);
+    if (token) {
+      const options = {
+        headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`,'Content-Type': 'application/json' })
+      };
+      let body = JSON.stringify(applicantInfo);
+      return this._http.post(`${url}/applicant/update`, body, options);
+    }
   }
 }
