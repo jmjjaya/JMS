@@ -19,7 +19,7 @@ export class SearchBarComponent implements OnInit {
   bkgnd: Object = { bkgnd: true, shadow: true };
   searchbar: Object = { 'search-bar': true };
   searchinput: Object = { 'form-input': true, 'search-input': true };
-  suggestions: string[];
+  suggestions: string[] = [];
 
   ngOnInit() {
     this._dataService.getJobPosition();
