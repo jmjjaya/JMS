@@ -21,6 +21,10 @@ const registerSchema = {
             type: 'string',
             required: true
         },
+        role: {
+            type: 'string',
+            required: true
+        },
         email: {
             type: 'email',
             required: true
