@@ -176,20 +176,4 @@ export class DataService {
       return this._http.post(`${url}/applicant/update`, body, options);
     }
   }
-<<<<<<< Updated upstream
-=======
-
-  updateApplicantInfo(applicantInfo) {
-
-    const token = localStorage.getItem('jwt');
-    console.log(token);
-    if (token) {
-      const options = {
-        headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`,'Content-Type': 'application/json' })
-      };
-      let body = JSON.stringify(applicantInfo);
-      return this._http.post(`${url}/applicant/update`, body, options);
-    }
-  }
->>>>>>> Stashed changes
 }
