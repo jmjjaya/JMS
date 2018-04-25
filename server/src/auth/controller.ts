@@ -7,6 +7,7 @@ import { AsyncCompleter } from "readline";
 
 interface authPayload {
     fullname?: string,
+    role?: string,
     email: string,
     password: string
 }
@@ -33,16 +34,17 @@ export const login = async (req: any, res: any, next: any) => {
         return res.status(401).json({ error: "unauthorized" });
     }
 
-    req.email = email;
+    const { fullname, role } = user;
+    req.user = { fullname, email, role };
 
     next();
 };
 
 export const generateJWT = (req: any, res: any, next: any) => {
 
-    const { email } = req;
+    const { email, role, fullname } = req.user;
 
-    const token = jwt.sign({ email }, JWT_SECRET);
+    const token = jwt.sign({ email, role, fullname }, JWT_SECRET);
 
     req.token = token;
 
@@ -51,7 +53,7 @@ export const generateJWT = (req: any, res: any, next: any) => {
 
 export const register = async (req: any, res: any, next: any) => {
 
-    const { fullname,  email, password } : authPayload = req.body;
+    const { fullname,  email, password, role } : authPayload = req.body;
 
     const user: any = await User.findOne({ email });
 
@@ -59,9 +61,9 @@ export const register = async (req: any, res: any, next: any) => {
         return res.status(400).json({ error: "user already exists" });
     }
 
-    await User.create({ fullname, email, password: hashpass(password) });
+    await User.create({ fullname, email, role, password: hashpass(password) });
 
-    req.email = email;
+    req.user = { fullname, email, role };
 
     next();
 };

@@ -97,6 +97,7 @@ export class DataService {
   }
 
   register(user: any) {
+
     this._http.post(`${this.apiRoot}/api/auth/register`, user, httpOptions).subscribe(
       (response : Credentials) => {
 

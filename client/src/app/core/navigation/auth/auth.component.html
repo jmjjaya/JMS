@@ -21,6 +21,15 @@
                </div>
             </div>
 
+            <div class="form-group">
+
+                <label for="applicant">Applicant</label>
+                <input type="radio" id="applicant" name="role" #role="ngModel" [(ngModel)]="model.role" value="applicant">
+                <br>
+                <label for="recruiter">Recruiter</label>
+                <input type="radio" id="recruiter" name="role" #role="ngModel" [(ngModel)]="model.role" value="recruiter">
+            </div>
+
             <div class="form-group"
                 [ngClass]="{
                     'has-danger': email.invalid && (email.dirty || email.touched),
