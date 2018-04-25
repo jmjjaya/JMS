@@ -1,3 +1,4 @@
+import { Applicant } from './../applicant/model';
 import logger from "../util/logger";
 import { User } from "./model";
 import * as jwt from "jsonwebtoken";
@@ -42,9 +43,9 @@ export const login = async (req: any, res: any, next: any) => {
 
 export const generateJWT = (req: any, res: any, next: any) => {
 
-    const { email, role, fullname } = req.user;
+    const { email, role, fullname, _id } = req.user;
 
-    const token = jwt.sign({ email, role, fullname }, JWT_SECRET);
+    const token = jwt.sign({ email, role, fullname, _id }, JWT_SECRET);
 
     req.token = token;
 
@@ -90,7 +91,10 @@ export const isAuthenticated = (req: any, res: any, next: any) => {
             logger.error("JWT problem", error);
             return res.status(401).json({ error: "unauthorized" });
         }
+
+        req._id = decoded._id;
+
+        next();
     });
 
-    next();
 }

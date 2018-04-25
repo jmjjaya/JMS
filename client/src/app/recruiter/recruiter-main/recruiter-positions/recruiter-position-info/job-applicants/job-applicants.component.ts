@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Applicant} from '../../../../../shared/models/applicant';
+import { Address } from '../../../../../shared/models/address';
 
 @Component({
   selector: 'jmsapp-job-applicants',
@@ -12,7 +13,7 @@ export class JobApplicantsComponent implements OnInit {
       name:"Josh",
     gender:"M",
     dob:new Date(),
-    address: "1000 N. 4th street",
+    address: new Address(),
     phone: "9841026252",
     email: "josh@mum.edu",
     liURL: "www.mylink.com"

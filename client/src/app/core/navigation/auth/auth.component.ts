@@ -32,8 +32,9 @@ export class AuthComponent implements OnInit {
 
   submitLogin(loginForm) {
     this._dataService.login(this.model);
-    this._dataService.getApplicantInfo();
     this.isAuthenticated = true; // this should be a subscribe to changes on data service
+    console.log(localStorage.getItem('jwt'));
+    this._dataService.getApplicantInfo();
     this.modalRef.hide();
   }
 
