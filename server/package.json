@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "start": "npm run build && node dist/app.js",
+    "start": "npm run build && node dist/app.js | bunyan",
     "build": "tsc",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "npm run lint"

@@ -6,18 +6,17 @@
  * @author Rupendra MAHARJAN
  */
 import { model, Schema } from 'mongoose';
-import { Address } from '../model/address';
-import { JobPosition } from '../model/jobPosition';
+import {Address} from '../model/address';
+import { JobPosition } from '../jobPositions/model';
 
 const recruiterSchema: Schema = new Schema({
-    recruiter_id: Number,
     name: String,
-    address: Address,
+    address:{type:Schema.Types.ObjectId,refs:'Address'},
     contact: String,
     email: String,
     webLink: String,
-    logoURL: String,
-    positions: [JobPosition]
+    logoURL:String,
+    // positions:[JobPosition]
 });
 
 export const Recruiter = model("recruiter", recruiterSchema);

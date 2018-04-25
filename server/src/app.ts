@@ -4,43 +4,32 @@ import express from "express";
 import logger from "./util/logger";
 import cors from "cors";
 
-const myURL = "mongodb://root:rupenman@ds157599.mlab.com:57599/final_exam_database";
 // connect to DB
 import mongoose from "mongoose";
 mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/jms");
 // mongoose.connect(process.env.MONGO_URL || myURL);
 
+
 // modules
 import { AuthRouter } from "./auth";
 import { ApplicantRouter } from "./applicant";
+import { RecruiterController } from "./recruiter/controller";
+import {JobPositionController} from "./jobPositions/controller";
+
 
 // configuration
 const app = express();
+// const cors= require('cors');
 
 // Supports for JSON parsing
 app.use(express.json());
-
-// CORS
-app.use(cors());
-
 // logger configuration
 app.use(bunyanMiddleware({ logger }));
 
+app.use(cors());
 // routes
-app.use("/api/auth", AuthRouter);
-app.use("/api/applicant", ApplicantRouter);
-
-// Error Handling for validation
-app.use((err: any, req: any, res: any, next: any) => {
-
-    // JSON Schema validations for payloads
-    if(err.name === "JsonSchemaValidation"){
-        res.status(400).send(err.validations);
-    };
-
-    logger.error(err);
-    res.status(500).send('Something broke!')
-})
+app.use("/api/recruiter", RecruiterController);
+app.use("/api/jobPosition", JobPositionController);
 
 // listening
 app.listen(3000, () => {
