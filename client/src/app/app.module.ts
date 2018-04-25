@@ -27,19 +27,26 @@ import { AuthService } from './auth/auth.service';
 const MY_ROUTES = [
   {
     path: '',
+    redirectTo: 'jms',
+    pathMatch: 'full'
+  },
+  {
+    path: 'jms',
     component: SearchBarComponent,
-    data: { title: 'search jobs' }
-  },
-  {
-    path: 'search',
-    component: SearchComponent,
-    data: { title: 'results' }
-  },
-  {
-    path: 'applicant',
-    component: ApplicantComponent,
-    canActivate: [AuthGuard],
-    data: { title: 'applicant' }
+    data: { title: 'search jobs' },
+    children: [
+      {
+        path: 'search',
+        component: SearchComponent,
+        data: { title: 'results' }
+      },
+      {
+        path: 'applicant',
+        component: ApplicantComponent,
+        canActivate: [AuthGuard],
+        data: { title: 'applicant' }
+      }
+    ]
   },
   {
     path: 'recruiter',
@@ -57,6 +64,7 @@ const MY_ROUTES = [
     path: '**',
     component: PageNotFoundComponent
   }
+
 ];
 
 

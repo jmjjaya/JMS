@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -7,6 +7,7 @@ import { DataService } from '../../core/services/data.service';
 import { CHECKBOX_CONTROL_VALUE_ACCESSOR } from 'ngx-bootstrap/buttons/button-checkbox.directive';
 import { JobPosition } from '../../shared/models/jobPosition';
 import { toArray } from 'rxjs/operator/toArray';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class SearchBarComponent implements OnInit {
   typeaheadNoResults: boolean;
   dataSource: Observable<any>;
 
-  constructor(private _dataService: DataService) {
+  constructor(private _dataService: DataService, private _router: Router) {
     this.dataSource = Observable.create((observer: any) => {
       // Runs on every search
       observer.next(this.asyncSelected);
@@ -65,7 +66,8 @@ export class SearchBarComponent implements OnInit {
   }
 
   onSearch(event) {
-    if (this.asyncSelected !== null) {
+    if (this.asyncSelected) {
+      console.log("searching.....");
       this._dataService.searchJobPosition('title=' + this.asyncSelected);
     }
     // Move the search bar to the top left corner
@@ -73,6 +75,8 @@ export class SearchBarComponent implements OnInit {
     this.searchinput = { 'form-input': true, 'search-input': true, 'fold': true };
     // Hide the backgroud image
     this.bkgnd = { 'bkgnd': true, 'shadow': true, 'fold': true };
+
+    this._router.navigate(['/jms/search']);
 
   }
 }

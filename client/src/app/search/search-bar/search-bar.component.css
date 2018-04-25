@@ -1,5 +1,4 @@
 .bkgnd.shadow {
-    content: '';
     position: relative;
     width:auto;
     height:500px;
@@ -13,10 +12,11 @@
 }
 
 .bkgnd.shadow.fold {
-    content: '';
-    position: relative;
     width:auto;
     height:auto;
+    margin-top: 50px;
+    background-image: none;
+    border: chartreuse;
 }
 
 

@@ -21,9 +21,8 @@ export class SearchComponent {
   jobs: any[] = [];
   loading: boolean;
   constructor(private _dataService: DataService) {
-    this._dataService.getJobPosition();
+    // this._dataService.getJobPosition();
     this._dataService.jobPosition.subscribe((response: JobPosition[]) =>{
-      console.log("jobs");
       this.jobs = response;
     });
   }
