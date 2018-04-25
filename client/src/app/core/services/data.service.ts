@@ -49,18 +49,6 @@ export class DataService {
       authenticated: false,
 
     };
-
-    this._applicant = <BehaviorSubject<AppliedPost>>new BehaviorSubject(new AppliedPost);
-    this.applilcant = this._applicant.asObservable();
-
-    this._credentials = <BehaviorSubject<Credentials>>new BehaviorSubject(new Credentials);
-    this.credentials = this._credentials.asObservable();
-
-    this._jobPosition = <BehaviorSubject<JobPosition>>new BehaviorSubject(new JobPosition);
-    this.jobPosition = this._jobPosition.asObservable();
-
-    this._recruiter = <BehaviorSubject<Recruiter>>new BehaviorSubject(new Recruiter);
-    this.recruiter = this._recruiter.asObservable();
   }
 
   getApplicantInfo() {
