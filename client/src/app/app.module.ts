@@ -19,7 +19,9 @@ import { ApplicantComponent } from './applicant/applicant.component';
 
 import { PageNotFoundComponent } from './not-found.component';
 
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
+
+import { AuthGuard } from './auth/auth-guard.service';
 
 const MY_ROUTES = [
   {
@@ -35,16 +37,19 @@ const MY_ROUTES = [
   {
     path: 'applicant',
     component: ApplicantComponent,
+    canActivate: [AuthGuard],
     data: { title: 'applicant' }
   },
   {
     path: 'recruiter',
     component: RecruiterMainComponent,
+    canActivate: [AuthGuard],
     data: { title: 'recruiter home' }
   },
   {
     path: 'recruiter/profile',
     component: UpdateRecruiterComponent,
+    canActivate: [AuthGuard],
     data: { title: 'Update Profile' }
   },
   {
@@ -68,7 +73,7 @@ const MY_ROUTES = [
     SearchModule,
     RouterModule.forRoot(MY_ROUTES)
   ],
-  providers: [DataService],
+  providers: [DataService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
