@@ -11,6 +11,15 @@
     background-image: url("../gethired.jpg");
     background-size:100% 100%;
 }
+
+.bkgnd.shadow.fold {
+    content: '';
+    position: relative;
+    width:auto;
+    height:auto;
+}
+
+
 .search-bar {
     position: relative;
     top: 50%;
@@ -18,8 +27,20 @@
     transform: perspective(1px) translateY(-50%);
 }
 
+.search-bar.fold {
+    position: relative;
+    text-align: left;
+    transform: perspective(1px) translateY(-50%);
+}
+
 .search-input {
-    margin-left: 20%;
+    position: relative;
+    width: 50%;
+    color: white;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%);
+}
+
+.search-input.fold {
     width: 60%;
     color: white;
     background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%);

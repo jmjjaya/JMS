@@ -9,7 +9,7 @@ const router = Router();
 router.get("/", async (req, res) => {
     logger.info({ log: "this" });
     const jobPos = await JobPosition.find();
-    res.send({ hello: "world", jobPos });
+    res.send(jobPos);
 });
 
 router.post("/create", async (req, res) => {
@@ -26,5 +26,16 @@ router.post("/create", async (req, res) => {
     await aJob.save();
     res.send("ok");
 });
+
+router.get('/search', async (req, res) => {
+    logger.info({ log: "this" });
+    for (let term in req.query) {
+        req.query[term]  = {$regex: req.query[term], $options: 'i'};
+    }
+    console.log(req.query);
+    const jobPos = await JobPosition.find(req.query);
+        
+    res.send(jobPos);
+})
 
 export const JobPositionController: Router = router;

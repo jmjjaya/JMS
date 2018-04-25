@@ -7,6 +7,7 @@ import { SearchComponent } from './search/search.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    TypeaheadModule
+    TypeaheadModule,
+    HttpClientModule
+
   ],
   declarations: [SearchComponent, SearchBarComponent],
   exports: [SearchComponent, SearchBarComponent]

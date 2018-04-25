@@ -23,7 +23,7 @@ export class DataService {
   private dataRepo: {
     applicant: AppliedPost,
     credentials: Credentials,
-    jobPosition: JobPosition,
+    jobPosition: JobPosition[],
     recruiter: Recruiter,
     authenticated: boolean,
   };
@@ -34,8 +34,9 @@ export class DataService {
   private _credentials: BehaviorSubject<Credentials>;
   public credentials: Observable<Credentials>;
 
-  private _jobPosition: BehaviorSubject<JobPosition>;
-  public jobPosition: Observable<JobPosition>;
+
+  private _jobPosition: BehaviorSubject<JobPosition[]>;
+  public jobPosition: Observable<JobPosition[]>;
 
   private _recruiter: BehaviorSubject<Recruiter>;
   public recruiter: Observable<Recruiter>;
@@ -44,11 +45,20 @@ export class DataService {
     this.dataRepo = {
       applicant: new AppliedPost,
       credentials: new Credentials,
-      jobPosition: new JobPosition,
+      jobPosition: new Array<JobPosition>(),
       recruiter: new Recruiter,
       authenticated: false,
 
     };
+    this._credentials = <BehaviorSubject<Credentials>>new BehaviorSubject(new Credentials);
+    this.credentials = this._credentials.asObservable();
+    this.applilcant = this._applicant.asObservable();
+
+    this._jobPosition = <BehaviorSubject<JobPosition[]>>new BehaviorSubject(new Array<JobPosition>());
+    this.jobPosition = this._jobPosition.asObservable();
+
+    this._recruiter = <BehaviorSubject<Recruiter>>new BehaviorSubject(new Recruiter);
+    this.recruiter = this._recruiter.asObservable();
   }
 
   getApplicantInfo() {
@@ -64,7 +74,9 @@ export class DataService {
       console.log(token);
       this._http.get(`${url}/applicant/info`, options)
         .subscribe((response: AppliedPost) => {
+
           console.log(response);
+
           this.dataRepo.applicant = response;
           this._applicant.next(Object.assign({}, this.dataRepo).applicant);
         });
@@ -98,7 +110,6 @@ export class DataService {
 
   register(user: any) {
 
-
     this._http.post(`${url}/auth/register`, user, httpOptions).subscribe(
       (response: Credentials) => {
         localStorage.setItem('jwt', response.token);
@@ -114,10 +125,20 @@ export class DataService {
 
 
   getJobPosition() {
-    this._http.get(url + "/jobPosition").subscribe((response: JobPosition) => {
+    console.log('Getting all the job positions...');
+    this._http.get(url + "/jobPosition").subscribe((response: JobPosition[]) => {
+      console.log(response);
       this.dataRepo.jobPosition = response;
       this._jobPosition.next(Object.assign({}, this.dataRepo).jobPosition);
-    });
+    }, err => { console.log(err)}, () => { console.log("Get job position done") });
+  }
+
+  searchJobPosition(query: string) {
+    this._http.get(url + "/jobPosition/search?" + query)
+      .subscribe((response: JobPosition[]) => {
+        this.dataRepo.jobPosition = response;
+        this._jobPosition.next(Object.assign({}, this.dataRepo).jobPosition);
+      });
   }
 
   createNewJob(newJob) {
@@ -139,9 +160,9 @@ export class DataService {
   }
 
   createRecruiter(newRecruiter) {
-    
+
     let body = newRecruiter;
-    return this._http.post(url+"/recruiter/create", body, httpOptions).subscribe(
+    return this._http.post(url + "/recruiter/create", body, httpOptions).subscribe(
       result => {
         console.log("Creating Recruiter.....");
         return true;
