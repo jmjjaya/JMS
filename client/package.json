@@ -24,6 +24,7 @@
     "@swimlane/ngx-datatable": "^11.3.2",
     "bootstrap": "^4.1.0",
     "core-js": "^2.4.1",
+    "ng2-search-filter": "^0.4.7",
     "ngx-bootstrap": "^2.0.4",
     "ngx-datatable": "^1.0.3",
     "rxjs": "^5.5.6",

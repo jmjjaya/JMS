@@ -20,7 +20,7 @@ import { SearchModule } from './search/search.module';
     SharedModule,
     ApplicantModule,
     RecruiterModule,
-    SearchModule
+    SearchModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
