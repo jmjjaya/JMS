@@ -24,8 +24,13 @@ export class SearchBarComponent implements OnInit {
   ngOnInit() {
     this._dataService.getJobPosition();
     this._dataService.jobPosition.subscribe((response: JobPosition[]) =>{
-      this.suggestions = Array.from(new Set(response.map(job => job.title)));
-    });
+      if (response.length > 0 && response) {
+        this.suggestions = [];
+        this.suggestions = Array.from(new Set(response.map(job => job.title)));
+      } else {
+        this.suggestions.push('no suggestion right now!');
+      }
+    }, console.error, () => console.log("Initial the search suggestion sccessed! "));
   }
 
   asyncSelected: string;

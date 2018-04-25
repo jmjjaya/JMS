@@ -11,6 +11,8 @@ import { JobApplicantsComponent } from './recruiter-main/recruiter-positions/rec
 import { JobApplicantComponent } from './recruiter-main/recruiter-positions/recruiter-position-info/job-applicants/job-applicant/job-applicant.component';
 import { PublishJobComponent } from './publish-job/publish-job.component';
 import { UpdateRecruiterComponent } from './update-recruiter/update-recruiter.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { UpdateRecruiterComponent } from './update-recruiter/update-recruiter.co
     CommonModule,
     RouterModule,
     FormsModule,
+    NgxDatatableModule,
+    UiSwitchModule
   ],
   exports: [RecruiterMainComponent, PublishJobComponent, UpdateRecruiterComponent],
   providers:[],
