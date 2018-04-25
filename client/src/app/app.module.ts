@@ -8,18 +8,56 @@ import { ApplicantModule } from './applicant/applicant.module';
 import { DataService } from './core/services/data.service';
 import { RecruiterModule } from './recruiter/recruiter.module';
 import { SearchModule } from './search/search.module';
+
+import { SearchBarComponent } from './search/search-bar/search-bar.component';
+import { SearchComponent } from './search/search/search.component';
+
 import { UpdateRecruiterComponent } from './recruiter/update-recruiter/update-recruiter.component';
-import { RouterModule } from '@angular/router';
+import { RecruiterMainComponent } from './recruiter/recruiter-main/recruiter-main-component/recruiter-main.component';
+
+import { ApplicantComponent } from './applicant/applicant.component';
+
+import { PageNotFoundComponent } from './not-found.component';
+
+import { RouterModule, Routes } from '@angular/router';
 
 const MY_ROUTES = [
-  {path:"", redirectTo: "AppComponent", pathMatch:"full"},
-  {path:"updateRecruiter", component:UpdateRecruiterComponent}
+  {
+    path: '',
+    component: SearchBarComponent,
+    data: { title: 'search jobs' }
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
+    data: { title: 'results' }
+  },
+  {
+    path: 'applicant',
+    component: ApplicantComponent,
+    data: { title: 'applicant' }
+  },
+  {
+    path: 'recruiter',
+    component: RecruiterMainComponent,
+    data: { title: 'recruiter home' }
+  },
+  {
+    path: 'recruiter/profile',
+    component: UpdateRecruiterComponent,
+    data: { title: 'Update Profile' }
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  }
 ];
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
