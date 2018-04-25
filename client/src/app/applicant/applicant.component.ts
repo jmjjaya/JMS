@@ -23,7 +23,7 @@ export class ApplicantComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this._dataService.applilcant.subscribe((res: AppliedPost) => {
+    this._dataService.applicant.subscribe((res: AppliedPost) => {
       console.log(res)
       this.applicant = res.applicant;
       this.positions = res.appliedpost;

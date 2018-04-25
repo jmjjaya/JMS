@@ -9,12 +9,20 @@ export class AuthService {
 
     public isAuthenticated(): boolean {
 
-        let jwtHelper: JwtHelperService = new JwtHelperService();
+        const jwtHelper: JwtHelperService = new JwtHelperService();
         const token = localStorage.getItem('jwt');
 
         console.log(jwtHelper.decodeToken(token));
 
         return !!token;
+    }
+
+    public getDecodedToken(): any {
+
+        const jwtHelper: JwtHelperService = new JwtHelperService();
+        const token = localStorage.getItem('jwt');
+
+        return jwtHelper.decodeToken(token);
     }
 
 }

@@ -20,6 +20,8 @@ const url = "http://localhost:3000/api";
 @Injectable()
 export class DataService {
 
+  private token = localStorage.getItem('jwt');
+
   private dataRepo: {
     applicant: AppliedPost,
     credentials: Credentials,
@@ -29,7 +31,7 @@ export class DataService {
   };
 
   private _applicant: BehaviorSubject<AppliedPost>;
-  public applilcant: Observable<AppliedPost>;
+  public applicant: Observable<AppliedPost>;
 
   private _credentials: BehaviorSubject<Credentials>;
   public credentials: Observable<Credentials>;
@@ -48,11 +50,13 @@ export class DataService {
       jobPosition: new Array<JobPosition>(),
       recruiter: new Recruiter,
       authenticated: false,
-
     };
+
     this._credentials = <BehaviorSubject<Credentials>>new BehaviorSubject(new Credentials);
     this.credentials = this._credentials.asObservable();
-    this.applilcant = this._applicant.asObservable();
+
+    this._applicant = <BehaviorSubject<AppliedPost>>new BehaviorSubject(new AppliedPost);
+    this.applicant = this._applicant.asObservable();
 
     this._jobPosition = <BehaviorSubject<JobPosition[]>>new BehaviorSubject(new Array<JobPosition>());
     this.jobPosition = this._jobPosition.asObservable();
@@ -63,15 +67,10 @@ export class DataService {
 
   getApplicantInfo() {
 
-    console.log('hereeee');
-
-    const token = localStorage.getItem('jwt');
-    console.log({token});
-    if (token) {
+    if (this.token) {
       const options = {
-        headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` })
+        headers: new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
       };
-      console.log(token);
       this._http.get(`${url}/applicant/info`, options)
         .subscribe((response: AppliedPost) => {
 
@@ -84,7 +83,7 @@ export class DataService {
   }
 
   isAuthenticated() {
-    return this.dataRepo.authenticated;
+    return !!this.token;
   }
 
   login(credentials: any) {
@@ -92,6 +91,7 @@ export class DataService {
       (response: Credentials) => {
 
         localStorage.setItem('jwt', response.token);
+        this.token = response.token;
 
         this.dataRepo.credentials = response;
         this._credentials.next(Object.assign({}, this.dataRepo).credentials);
@@ -105,6 +105,7 @@ export class DataService {
 
   logout() {
     localStorage.removeItem('jwt');
+    this.token = null;
     this.dataRepo.authenticated = false;
   }
 
@@ -112,7 +113,9 @@ export class DataService {
 
     this._http.post(`${url}/auth/register`, user, httpOptions).subscribe(
       (response: Credentials) => {
+
         localStorage.setItem('jwt', response.token);
+        this.token = response.token;
 
         this.dataRepo.credentials = response;
         this._credentials.next(Object.assign({}, this.dataRepo).credentials);
@@ -175,11 +178,9 @@ export class DataService {
 
   updateApplicantInfo(applicantInfo) {
 
-    const token = localStorage.getItem('jwt');
-    console.log(token);
-    if (token) {
+    if (this.token) {
       const options = {
-        headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`,'Content-Type': 'application/json' })
+        headers: new HttpHeaders({ 'Authorization': `Bearer ${this.token}`,'Content-Type': 'application/json' })
       };
       let body = JSON.stringify(applicantInfo);
       return this._http.post(`${url}/applicant/update`, body, options);

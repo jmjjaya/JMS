@@ -22,6 +22,7 @@ import { PageNotFoundComponent } from './not-found.component';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
 
 import { AuthGuard } from './auth/auth-guard.service';
+import { AuthService } from './auth/auth.service';
 
 const MY_ROUTES = [
   {
@@ -73,7 +74,7 @@ const MY_ROUTES = [
     SearchModule,
     RouterModule.forRoot(MY_ROUTES)
   ],
-  providers: [DataService, AuthGuard],
+  providers: [DataService, AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
