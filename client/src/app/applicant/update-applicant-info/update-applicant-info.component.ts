@@ -1,6 +1,8 @@
+import { Applicant } from '../../shared/models/applicant';
 import { Component, OnInit, Input } from '@angular/core';
 import { Address } from '../../shared/models/address';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { DataService } from '../../core/services/data.service';
 
 @Component({
   selector: 'jmsapp-update-applicant-info',
@@ -8,19 +10,18 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
   styleUrls: ['./update-applicant-info.component.css']
 })
 export class UpdateApplicantInfoComponent implements OnInit {
-  @Input() name;
-  @Input() dob;
-  @Input() email;
-  @Input() url;
-  @Input() address: Address;
-
-  constructor(public bsModalRef: BsModalRef) { }
+  @Input() applicant: Applicant;
+  constructor(public bsModalRef: BsModalRef, private _dataservice: DataService) { }
 
   ngOnInit() {
-    this.address = new Address();
+    this.applicant = new Applicant();
   }
 
-  onSubmit(){
-
+  onSubmit() {
+    console.log(this.applicant);
+    this._dataservice.updateApplicantInfo(this.applicant).subscribe(responce =>
+    {
+      console.log(responce);
+    });
   }
 }

@@ -34,7 +34,6 @@ export class DataService {
   private _credentials: BehaviorSubject<Credentials>;
   public credentials: Observable<Credentials>;
 
-
   private _jobPosition: BehaviorSubject<JobPosition>;
   public jobPosition: Observable<JobPosition>;
 
@@ -48,6 +47,7 @@ export class DataService {
       jobPosition: new JobPosition,
       recruiter: new Recruiter,
       authenticated: false,
+
     };
 
     this._applicant = <BehaviorSubject<AppliedPost>>new BehaviorSubject(new AppliedPost);
@@ -55,7 +55,6 @@ export class DataService {
 
     this._credentials = <BehaviorSubject<Credentials>>new BehaviorSubject(new Credentials);
     this.credentials = this._credentials.asObservable();
-    this.applilcant = this._applicant.asObservable();
 
     this._jobPosition = <BehaviorSubject<JobPosition>>new BehaviorSubject(new JobPosition);
     this.jobPosition = this._jobPosition.asObservable();
@@ -66,19 +65,20 @@ export class DataService {
 
   getApplicantInfo() {
 
-    const token = localStorage.getItem('jwt');
+    console.log('hereeee');
 
+    const token = localStorage.getItem('jwt');
+    console.log({token});
     if (token) {
       const options = {
         headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` })
       };
-
+      console.log(token);
       this._http.get(`${url}/applicant/info`, options)
-        .subscribe((response : AppliedPost) => {
-
+        .subscribe((response: AppliedPost) => {
+          console.log(response);
           this.dataRepo.applicant = response;
           this._applicant.next(Object.assign({}, this.dataRepo).applicant);
-
         });
     }
   }
@@ -110,9 +110,9 @@ export class DataService {
 
   register(user: any) {
 
-    this._http.post(`${url}/auth/register`, user, httpOptions).subscribe(
-      (response : Credentials) => {
 
+    this._http.post(`${url}/auth/register`, user, httpOptions).subscribe(
+      (response: Credentials) => {
         localStorage.setItem('jwt', response.token);
 
         this.dataRepo.credentials = response;
@@ -142,7 +142,7 @@ export class DataService {
   }
 
   getRecruiterByName(name) {
-    this._http.get(`${url}/recruiter/${name}`).subscribe((response:Recruiter) =>{
+    this._http.get(`${url}/recruiter/${name}`).subscribe((response: Recruiter) => {
       this.dataRepo.recruiter = response;
       this._recruiter.next(Object.assign({}, this.dataRepo).recruiter);
     }
@@ -163,4 +163,33 @@ export class DataService {
       }
     );
   }
+
+  updateApplicantInfo(applicantInfo) {
+
+    const token = localStorage.getItem('jwt');
+    console.log(token);
+    if (token) {
+      const options = {
+        headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`,'Content-Type': 'application/json' })
+      };
+      let body = JSON.stringify(applicantInfo);
+      return this._http.post(`${url}/applicant/update`, body, options);
+    }
+  }
+<<<<<<< Updated upstream
+=======
+
+  updateApplicantInfo(applicantInfo) {
+
+    const token = localStorage.getItem('jwt');
+    console.log(token);
+    if (token) {
+      const options = {
+        headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`,'Content-Type': 'application/json' })
+      };
+      let body = JSON.stringify(applicantInfo);
+      return this._http.post(`${url}/applicant/update`, body, options);
+    }
+  }
+>>>>>>> Stashed changes
 }

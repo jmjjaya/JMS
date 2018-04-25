@@ -1,3 +1,5 @@
+import { ApplicantController } from './applicant/controller';
+import { Applicant } from './applicant/model';
 
 import bunyanMiddleware from "bunyan-middleware";
 import express from "express";
@@ -37,6 +39,6 @@ app.use("/api/recruiter", RecruiterController);
 app.use("/api/jobPosition", JobPositionController);
 
 // listening
-app.listen(3000, () => {
+app.listen(3000, '0.0.0.0', () => {
     logger.info("listening on port 3000");
 });
