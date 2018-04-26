@@ -10,6 +10,7 @@ import { HttpClient, HttpResponse, HttpHeaders, HttpRequest } from '@angular/com
 import { Recruiter } from '../../recruiter/recruiter';
 //import { APP_CONFIG, HttpConfig } from '../../app-config/app-config.constants';
 import { JobPosition } from '../../shared/models/jobPosition';
+import { AuthService } from '../../auth/auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -47,7 +48,7 @@ export class DataService {
   private _recruiter: BehaviorSubject<Recruiter>;
   public recruiter: Observable<Recruiter>;
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _authService: AuthService) {
     this.dataRepo = {
       applicant: new AppliedPost,
       credentials: new Credentials,
@@ -79,12 +80,20 @@ export class DataService {
       const options = {
         headers: new HttpHeaders({ 'Authorization': `Bearer ${this.token}` , 'Content-Type': 'application/json' }, )
       };
-      this._http.get(`${url}/applicant/info`, options)
-        .subscribe((response: AppliedPost) => {
+      const decodedToken = this._authService.getDecodedToken();
+      this._http.get(`${url}/applicant/info/${decodedToken._id}`, options)
+        .subscribe((response: any) => {
 
           console.log(response);
-
-          this.dataRepo.applicant = response;
+          
+          this.dataRepo.applicant.appliedpost = response.applications;
+          this.dataRepo.applicant.applicant.address = response.address;
+          this.dataRepo.applicant.applicant.applicant_id = response.applicant_id;
+          this.dataRepo.applicant.applicant.dob = response.dob;
+          this.dataRepo.applicant.applicant.email = response.email;
+          this.dataRepo.applicant.applicant.liURL = response.liURL;
+          this.dataRepo.applicant.applicant.name = response.name;
+          this.dataRepo.applicant.applicant.phone = response.contact;
           this._applicant.next(Object.assign({}, this.dataRepo).applicant);
         });
     }

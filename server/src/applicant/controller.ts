@@ -2,9 +2,12 @@ import { Router } from "express";
 import { Applicant } from './model';
 import logger from "../util/logger";
 import { Address } from "../model/address";
+import { isAuthenticated} from "../auth/controller";
 //import { JobPosition } from "./model";
 
 const router = Router();
+var mongoose = require('mongoose');
+
 interface addressInterface {
     line1:string,
     line2: string,
@@ -23,10 +26,9 @@ interface applicantInfo {
 }
 
 
-router.get("/info", async (req: any, res: any) => {
+router.get("/info/:id", isAuthenticated, async (req: any, res: any) => {
 
     const applicant = await Applicant.findOne({ user: req._id }).populate('user').populate('applications');
-
     res.send(applicant);
 });
 
@@ -36,12 +38,12 @@ let body = req.body;
     console.log("My URL=" + JSON.stringify(req.body));
 
     const query ={
-        applicant_id:body.applicant_id
+        applicant_id:mongoose.Types.ObjectId(body.applicant_id)
     };
 
     const newApplicant = {
         $set: {
-            applicant_id: body.applicant_id,
+            applicant_id: mongoose.Types.ObjectId(body.applicant_id),
             name: body.name,
             address: body.address,
             contact: body.contact,
@@ -86,7 +88,7 @@ export const ApplicantController: Router = router;
 // import { Applicant } from "./model";
 // import { JobPosition } from "../jobPositions/model";
 // import { Address } from '../model/address';
-// import { isAuthenticated } from "../auth/controller";
+// import { isAuthenticated } from '../auth/controller';
 
 
 // //var mongoose = require('mongoose');
