@@ -16,9 +16,9 @@ export class RecruiterInfoComponent implements OnInit {
   constructor(private dataService: DataService) {
     this.fullImagePath = "/assets/images/profile.png";
   }
-  
+
   ngOnInit() {
-    this.dataService.getRecruiterInfo('Rupendra');
+    this.dataService.getRecruiterInfo();
     this.dataService.recruiter.subscribe(
       (response:Recruiter) => {
         console.log("Recruiter",response);
