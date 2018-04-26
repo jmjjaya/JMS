@@ -18,13 +18,13 @@ import { Router } from '@angular/router';
 export class SearchBarComponent implements OnInit {
 
   bkgnd: Object = { bkgnd: true, shadow: true };
-  searchbar: Object = { 'search-bar': true };
+  searchbar: Object = { 'row': true, 'search-bar': true };
   searchinput: Object = { 'form-input': true, 'search-input': true };
   suggestions: string[] = [];
 
   ngOnInit() {
     this._dataService.getJobPosition();
-    this._dataService.jobPosition.subscribe((response: JobPosition[]) =>{
+    this._dataService.jobPosition.subscribe((response: JobPosition[]) => {
       if (response.length > 0 && response) {
         this.suggestions = [];
         this.suggestions = Array.from(new Set(response.map(job => job.title)));
@@ -71,12 +71,15 @@ export class SearchBarComponent implements OnInit {
       this._dataService.searchJobPosition('title=' + this.asyncSelected);
     }
     // Move the search bar to the top left corner
-    this.searchbar = { 'search-bar': true, 'fold': true };
+    this.searchbar = {
+      'row': true, 'search-bar': true, 'fold': true
+    };
     this.searchinput = { 'form-input': true, 'search-input': true, 'fold': true };
     // Hide the backgroud image
     this.bkgnd = { 'bkgnd': true, 'shadow': true, 'fold': true };
-
+    
     this._router.navigate(['/jms/search']);
+    
 
   }
 }

@@ -26,6 +26,7 @@ export class DataService {
     applicant: AppliedPost,
     credentials: Credentials,
     jobPosition: JobPosition[],
+    jobPosResault: JobPosition[],
     recruiter: Recruiter,
     authenticated: boolean,
   };
@@ -40,6 +41,9 @@ export class DataService {
   private _jobPosition: BehaviorSubject<JobPosition[]>;
   public jobPosition: Observable<JobPosition[]>;
 
+  private _jobPosResault: BehaviorSubject<JobPosition[]>;
+  public jobPosResault: Observable<JobPosition[]>;
+
   private _recruiter: BehaviorSubject<Recruiter>;
   public recruiter: Observable<Recruiter>;
 
@@ -48,6 +52,7 @@ export class DataService {
       applicant: new AppliedPost,
       credentials: new Credentials,
       jobPosition: new Array<JobPosition>(),
+      jobPosResault: new Array<JobPosition>(),
       recruiter: new Recruiter,
       authenticated: false,
     };
@@ -60,6 +65,9 @@ export class DataService {
 
     this._jobPosition = <BehaviorSubject<JobPosition[]>>new BehaviorSubject(new Array<JobPosition>());
     this.jobPosition = this._jobPosition.asObservable();
+
+    this._jobPosResault = <BehaviorSubject<JobPosition[]>>new BehaviorSubject(new Array<JobPosition>());
+    this.jobPosResault = this._jobPosition.asObservable();
 
     this._recruiter = <BehaviorSubject<Recruiter>>new BehaviorSubject(new Recruiter);
     this.recruiter = this._recruiter.asObservable();
@@ -139,8 +147,8 @@ export class DataService {
   searchJobPosition(query: string) {
     this._http.get(url + "/jobPosition/search?" + query)
       .subscribe((response: JobPosition[]) => {
-        this.dataRepo.jobPosition = response;
-        this._jobPosition.next(Object.assign({}, this.dataRepo).jobPosition);
+        this.dataRepo.jobPosResault = response;
+        this._jobPosResault.next(Object.assign({}, this.dataRepo).jobPosResault);
       });
   }
 

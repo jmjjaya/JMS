@@ -23,25 +23,30 @@
 .search-bar {
     position: relative;
     top: 50%;
-    text-align: center;
+    /* text-align: center; */
     transform: perspective(1px) translateY(-50%);
 }
 
 .search-bar.fold {
     position: relative;
-    text-align: left;
+    /* text-align: left; */
     transform: perspective(1px) translateY(-50%);
 }
 
 .search-input {
     position: relative;
     width: 50%;
-    color: white;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%);
+    height: 50px;    
+    margin-left: 25%;
+    color: black;
+    /* background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%); */
+    opacity: 0.5;
 }
 
 .search-input.fold {
-    width: 60%;
-    color: white;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%);
+    width: 40%;
+    height: 40px;
+    margin-left: 30px;
+    opacity: 1;
+    z-index: 1000;
 }

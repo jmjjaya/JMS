@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../../core/services/data.service';
 import { JobPosition } from '../../shared/models/jobPosition';
+import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,11 +22,14 @@ export class SearchComponent {
 
   jobs: any[] = [];
   loading: boolean;
-  constructor(private _dataService: DataService) {
+  isApply: boolean;
+  constructor(private _dataService: DataService, private _authService: AuthService, private _router: Router) {
     // this._dataService.getJobPosition();
-    this._dataService.jobPosition.subscribe((response: JobPosition[]) =>{
+    this._dataService.jobPosResault.subscribe((response: JobPosition[]) => {
       this.jobs = response;
     });
+
+    this.isApply = this._authService.isAuthenticated();
   }
 
   onPage(event) {
@@ -43,19 +48,9 @@ export class SearchComponent {
     console.log('Detail Toggled', event);
   }
 
-
-  // expandJob(event) {
-  //   // console.log(this.jobsTr);
-  //   let job_id = event.currentTarget.id;
-  //   let job_detail_element = event.srcElement.parentElement.nextElementSibling;
-  //   job_detail_element.style.display = job_detail_element.style.display == 'block' ? 'none' : 'block';
-
-  //   console.log(job_detail_element);
-  //   console.log(job_detail_element.style.display);
-  // }
-
   applyJob(event) {
     alert("Go to Register or User profile page.");
+    
   }
 
 

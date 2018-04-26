@@ -1,12 +1,11 @@
 <div [ngClass]="bkgnd">
     <div [ngClass]="searchbar">
-        <div>
-            <input [(ngModel)]="asyncSelected" [typeahead]="dataSource" (typeaheadLoading)="changeTypeaheadLoading($event)" (typeaheadOnSelect)="typeaheadOnSelect($event)"
-                [typeaheadOptionsLimit]="7" typeaheadOptionField="name" placeholder="Locations loaded with timeout" [ngClass]="searchinput">
-            <div *ngIf="typeaheadLoading">Loading</div>
-            <p></p>
-            <button class="btn btn-primary" (click)="onSearch($event)">Search</button>
-        </div>
+        <input style="display: 'block', 'z-index': '99999'" [(ngModel)]="asyncSelected" [typeahead]="dataSource" (typeaheadLoading)="changeTypeaheadLoading($event)"
+            (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeaheadOptionsLimit]="7" typeaheadOptionField="name" placeholder="Locations loaded with timeout"
+            [ngClass]="searchinput">
+        <div *ngIf="typeaheadLoading">Loading</div>
+        <p></p>
+        <button class="btn btn-primary" (click)="onSearch($event)">Search</button>
     </div>
 </div>
 <router-outlet></router-outlet>
