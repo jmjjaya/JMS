@@ -8,6 +8,8 @@ import { AppComponent } from '../../../app.component';
 import { AuthService } from '../../../auth/auth.service';
 import { Credentials } from '../../../shared/models/credentials';
 
+import { Router } from "@angular/router";
+
 
 @Component({
   selector: 'auth',
@@ -24,7 +26,8 @@ export class AuthComponent implements OnInit {
   constructor(
     private modalService: BsModalService,
     private _dataService: DataService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _router: Router
   ) {}
 
 
@@ -39,17 +42,21 @@ export class AuthComponent implements OnInit {
   submitLogin(loginForm) {
     this._dataService.login(this.model);
     this._dataService.credentials.subscribe((credentials: Credentials) => {
-      console.log(this._authService.getDecodedToken());
-      // this._dataService.getApplicantInfo();
-      this._dataService.getRecruiterInfo();
+
+      const { role } = this._authService.getDecodedToken();
+      this._router.navigate([`jms/${role}`]);
       this.modalRef.hide();
+
     }, console.error);
   }
 
   submitRegister(registerForm) {
     this._dataService.register(this.model);
     this._dataService.credentials.subscribe((credentials: Credentials) => {
-      console.log(this._authService.getDecodedToken());
+
+      const { role } = this._authService.getDecodedToken();
+      this._router.navigate([`jms/${role}`]);
+
       this.modalRef.hide();
     }, console.error);
   }

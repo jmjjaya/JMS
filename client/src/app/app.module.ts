@@ -49,7 +49,7 @@ const MY_ROUTES = [
     ]
   },
   {
-    path: 'recruiter',
+    path: 'jms/recruiter',
     component: RecruiterMainComponent,
     canActivate: [AuthGuard],
     data: { title: 'recruiter home' }
