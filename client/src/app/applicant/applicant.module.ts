@@ -8,7 +8,10 @@ import { PositionComponent } from './position/position.component';
 import { PostItemComponent } from './position/post-item/post-item.component';
 import { AccordionModule } from 'ngx-bootstrap';
 import { UpdateApplicantInfoComponent } from './update-applicant-info/update-applicant-info.component';
-import {AlertModule, ModalModule} from 'ngx-bootstrap';
+import { AlertModule, ModalModule } from 'ngx-bootstrap';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { SearchModule } from '../search/search.module';
 
 @NgModule({
   imports: [
@@ -16,10 +19,14 @@ import {AlertModule, ModalModule} from 'ngx-bootstrap';
     AccordionModule.forRoot(),
     FormsModule,
     ModalModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    NgxDatatableModule,
+    TabsModule.forRoot(),
+    SearchModule
+
   ],
   declarations: [ApplicantComponent, ApplicantInfoComponent, AppliedPostComponent, PositionComponent, PostItemComponent, UpdateApplicantInfoComponent],
-  exports:[ApplicantComponent],
-  entryComponents:[UpdateApplicantInfoComponent]
+  exports: [ApplicantComponent],
+  entryComponents: [UpdateApplicantInfoComponent]
 })
 export class ApplicantModule { }

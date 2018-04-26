@@ -20,6 +20,7 @@ export class ApplicantComponent implements OnInit {
   ngOnInit() {
     this.applicant = new Applicant();
     this.positions = [];
+    console.log('test');
   }
 
   ngAfterViewInit() {

@@ -4,6 +4,8 @@ import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolve
 import { Applicant } from '../../shared/models/applicant';
 import { forEach } from '@angular/router/src/utils/collection';
 import { DataService } from '../../core/services/data.service';
+import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,29 +13,46 @@ import { DataService } from '../../core/services/data.service';
   templateUrl: './position.component.html',
   styleUrls: ['./position.component.css']
 })
-export class PositionComponent implements OnInit {
- // @ViewChild('positionItems', { read: ViewContainerRef }) positionItemRef: ViewContainerRef;
+export class PositionComponent {
+  // @ViewChild('positionItems', { read: ViewContainerRef }) positionItemRef: ViewContainerRef;
   @Input() positions: JobPosition[];
 
- // private _componentRef: ComponentRef<{}>[];
- // private _tempComponentRef: ComponentRef<{}>;
-  constructor(private _componentFactoryResolver: ComponentFactoryResolver, private _dataService: DataService) {
-    
+  @ViewChild('myTable') table: any;
+  expanded: any = {};
+  timeout: any;
+
+  // jobs: any[] = [];
+  loading: boolean;
+  isApply: boolean;
+  constructor(private _dataService: DataService,
+    private _authService: AuthService, private _router: Router) {
+    // this._dataService.getJobPosition();
+    // this._dataService.jobPosResault.subscribe((response: JobPosition[]) => {
+    //   this.jobs = response;
+    // });
+
+    this.isApply = this._authService.isAuthenticated();
   }
 
-  ngOnInit() {
-   // this._componentRef = [];
+  onPage(event) {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      console.log('paged!', event);
+    }, 100);
   }
 
-  // ngAfterViewInit() {
-  //   // this.positions.forEach( item => {
-  //   //   let factory = this._componentFactoryResolver.resolveComponentFactory(PostItemComponent);
-  //   //   this._tempComponentRef = this.positionItemRef.createComponent(factory);
-  //   //   this._componentRef.push(this._tempComponentRef);
-  //   //   let instance = <PostItemComponent>this._tempComponentRef.instance;
-  //   //   instance.positioninfo = <JobPosition>item;
-  //   //   console.log(item)
-  //   // });
-    
-  // }
+  toggleExpandRow(row) {
+    console.log('Toggled Expand Row!', row);
+    this.table.rowDetail.toggleExpandRow(row);
+  }
+
+  onDetailToggle(event) {
+    console.log('Detail Toggled', event);
+  }
+
+  applyJob(event) {
+    alert("Go to Register or User profile page.");
+
+  }
+
 }
