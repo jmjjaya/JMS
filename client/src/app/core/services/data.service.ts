@@ -98,16 +98,20 @@ export class DataService {
     this._http.post(`${url}/auth/login`, credentials, httpOptions).subscribe(
       (response: Credentials) => {
 
+        console.log({ response });
+
         localStorage.setItem('jwt', response.token);
         this.token = response.token;
 
         this.dataRepo.credentials = response;
-        this._credentials.next(Object.assign({}, this.dataRepo).credentials);
 
         this.dataRepo.authenticated = true;
 
       },
-      err => console.error('login error', err)
+      err => console.error('login error', err),
+      () => {
+        this._credentials.next(Object.assign({}, this.dataRepo).credentials);
+      }
     );
   }
 
@@ -179,7 +183,7 @@ export class DataService {
     }
   }
 
-  createRecruiter(newRecruiter) {  
+  createRecruiter(newRecruiter) {
     let body = JSON.stringify(newRecruiter);
     return this._http.post(url+"/recruiter/create", body, httpOptions).subscribe(
       result => {

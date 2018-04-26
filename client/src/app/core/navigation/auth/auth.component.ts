@@ -43,9 +43,12 @@ export class AuthComponent implements OnInit {
     this._dataService.login(this.model);
     this._dataService.credentials.subscribe((credentials: Credentials) => {
 
-      const { role } = this._authService.getDecodedToken();
-      this._router.navigate([`jms/${role}`]);
-      this.modalRef.hide();
+      setTimeout(() => {
+        const { role } = this._authService.getDecodedToken();
+        this._router.navigate([`jms/${role}`]);
+        this.isAuthenticated = true;
+        this.modalRef.hide();
+      }, 200);
 
     }, console.error);
   }
@@ -54,10 +57,13 @@ export class AuthComponent implements OnInit {
     this._dataService.register(this.model);
     this._dataService.credentials.subscribe((credentials: Credentials) => {
 
-      const { role } = this._authService.getDecodedToken();
-      this._router.navigate([`jms/${role}`]);
+      setTimeout(() => {
+        const { role } = this._authService.getDecodedToken();
+        this._router.navigate([`jms/${role}`]);
+        this.isAuthenticated = true;
+        this.modalRef.hide();
+      }, 200);
 
-      this.modalRef.hide();
     }, console.error);
   }
 
@@ -65,6 +71,7 @@ export class AuthComponent implements OnInit {
     console.log('logout');
     this._dataService.logout();
     this.isAuthenticated = false;
+    this._router.navigate(['']);
   }
 
   goProfile() {
