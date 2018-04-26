@@ -23,30 +23,11 @@ interface applicantInfo {
 }
 
 
-router.get("/info", async (req, res) => {
-    // const response: any = {
-    //     "applicant": {
-    //         "name": "Jeewan Jaathilkae",
-    //         "email": "efacjewan@gmail.com",
-    //         "phone": "1234",
-    //         "dob": "11/12/1234",
-    //         "address": "123, Nth 4th, AI",
-    //         "liURL": "www"
-    //     },
-    //     "appliedpost": [
-    //         {
-    //             "jobPositionId": "1",
-    //             "title": "Software Engineer",
-    //             "description": "java bla bala"
-    //         },
-    //         {
-    //             "jobPositionId": "2",
-    //             "title": "Software Engineer 2",
-    //             "description": "java bla bala sss"
-    //         }
-    //     ]
-    // };
-    res.send(response);
+router.get("/info", async (req: any, res: any) => {
+
+    const applicant = await Applicant.findOne({ user: req._id }).populate('user').populate('applications');
+
+    res.send(applicant);
 });
 
 
@@ -77,11 +58,11 @@ let body = req.body;
 router.post("/updatepositions", async (req, res) => {
     let body = req.body;
         console.log("My URL=" + JSON.stringify(req.body));
-    
+
         const query ={
             applicant_id:body.applicant_id
         };
-    
+
         const newApplicant = {
             $set: {
                 positions:{$push: body.positions}
@@ -90,9 +71,9 @@ router.post("/updatepositions", async (req, res) => {
         logger.info("Applicant Updated");
         await Applicant.findOneAndUpdate(query,newApplicant,{upsert:true, new:true});
         res.send({});
-    
+
     });
-    
+
 
 export const ApplicantController: Router = router;
 

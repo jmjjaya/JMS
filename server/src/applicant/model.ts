@@ -10,8 +10,7 @@ import { Address } from '../model/address';
 import { JobPosition } from '../jobPositions/model';
 
 const applicantSchema: Schema = new Schema({
-    applicant_id: String,
-    name: String,
+    user: { type: Schema.Types.ObjectId, ref: 'user' },
     address: {
         line1: String,
         line2: String,
@@ -20,9 +19,8 @@ const applicantSchema: Schema = new Schema({
         zipCode: String
     },
     contact: String,
-    email: String,
     liURL: String,
-    positions: [String]
+    applications: [{ type: Schema.Types.ObjectId, ref: 'job_position' }]
 });
 
 export const Applicant = model("applicant", applicantSchema);
