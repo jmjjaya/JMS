@@ -1,18 +1,18 @@
-import { Router } from "express";
+// import { Router } from "express";
 
-import { isAuthenticated } from "../auth/controller";
-import * as Applicant from "./controller";
+// import { isAuthenticated } from "../auth/controller";
+// import * as Applicant from "./controller";
 
-const router = Router();
+// const router = Router();
 
-router.get("/info",
-    isAuthenticated,
-    Applicant.getApplicantInfo
-);
+// router.get("/info",
+//     isAuthenticated,
+//     Applicant.getApplicantInfo
+// );
 
-router.put("/update",
-    isAuthenticated,
-    Applicant.updateApplicantInfo
-);
+// router.put("/update",
+//     isAuthenticated,
+//     Applicant.updateApplicantInfo
+// );
 
-export const ApplicantRouter: Router = router;
+// export const ApplicantRouter: Router = router;

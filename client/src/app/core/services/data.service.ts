@@ -69,7 +69,7 @@ export class DataService {
 
     if (this.token) {
       const options = {
-        headers: new HttpHeaders({ 'Authorization': `Bearer ${this.token}` })
+        headers: new HttpHeaders({ 'Authorization': `Bearer ${this.token}` , 'Content-Type': 'application/json' }, )
       };
       this._http.get(`${url}/applicant/info`, options)
         .subscribe((response: AppliedPost) => {

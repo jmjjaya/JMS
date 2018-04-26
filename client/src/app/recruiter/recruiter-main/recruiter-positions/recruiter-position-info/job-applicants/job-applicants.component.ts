@@ -10,6 +10,7 @@ import { Address } from '../../../../../shared/models/address';
 export class JobApplicantsComponent implements OnInit {
   jobApplicants: Applicant[]=[
     {
+      applicant_id: "1",
       name:"Josh",
     gender:"M",
     dob:new Date(),

@@ -10,8 +10,15 @@ import { Address } from '../model/address';
 import { JobPosition } from '../jobPositions/model';
 
 const applicantSchema: Schema = new Schema({
+    applicant_id: String,
     name: String,
-    address: String,
+    address: {
+        line1: String,
+        line2: String,
+        city: String,
+        state: String,
+        zipCode: String
+    },
     contact: String,
     email: String,
     liURL: String,
