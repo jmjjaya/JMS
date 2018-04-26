@@ -1,4 +1,3 @@
-import { ApplicantController } from './applicant/controller';
 import { Applicant } from './applicant/model';
 
 import bunyanMiddleware from "bunyan-middleware";
@@ -14,7 +13,7 @@ mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/jms");
 
 // modules
 import { AuthRouter } from "./auth";
-import { ApplicantRouter } from "./applicant";
+import { ApplicantController } from "./applicant/controller";
 import { RecruiterController } from "./recruiter/controller";
 import { JobPositionController } from "./jobPositions/controller";
 
@@ -40,7 +39,7 @@ app.use((req,res, next)=>{
 
 // routes
 app.use("/api/auth", AuthRouter);
-app.use("/api/applicant", ApplicantRouter);
+app.use("/api/applicant", ApplicantController);
 app.use("/api/recruiter", RecruiterController);
 app.use("/api/jobPosition", JobPositionController);
 

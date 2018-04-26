@@ -1,6 +1,6 @@
 <accordion>
-    <accordion-group *ngFor="let pos of positions" [heading] = "pos.jobTitle">
-      <p>{{pos.jobPositionId}}</p>
+    <accordion-group *ngFor="let pos of positions" [heading] = "pos.title">
+      <p>{{pos.postDate}}</p>
       <p>{{pos.description}}</p>
     </accordion-group>
 </accordion>
